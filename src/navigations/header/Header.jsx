@@ -8,7 +8,7 @@ import './header.scss'
 
 export default function Header(  ) {
     const {user} = useContext(Context)
-    
+
     return (
         <header className="header">
             <Link to="/" className="header__logo">
