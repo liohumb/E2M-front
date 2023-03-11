@@ -33,7 +33,7 @@
   &__menu {
     width: 75%;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: flex-end;
     gap: 4rem;
 
@@ -67,17 +67,32 @@
 
         &hover {
           color: v.$first-color-dark;
+          transform: scale(1.1);
         }
       }
     }
 
     &-link {
+      display: grid;
+      place-items: center;
       font-size: 2.5rem;
       color: v.$first-color-dark;
       transition: all .7s ease;
 
       &:hover {
         color: v.$dark-color;
+      }
+
+      & img {
+        width: 4rem;
+        height: 4rem;
+        object-fit: cover;
+        border-radius: 50%;
+        transition: all .7s ease;
+        
+        &:hover {
+          transform: scale(1.1);
+        }
       }
     }
   }
@@ -93,8 +108,17 @@
     }
 
     &-link {
+      display: grid;
+      place-items: center;
       font-size: 2.5rem;
       color: v.$first-color-dark;
+
+      & img {
+        width: 2.75rem;
+        height: 2.75rem;
+        object-fit: cover;
+        border-radius: 50%;
+      }
     }
   }
 }
