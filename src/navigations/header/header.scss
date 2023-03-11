@@ -1,5 +1,124 @@
 @use "src/assets/styles/variables" as v;
 
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(87, 111, 114, .75);
+  padding: 0 5%;
 
+  @media (max-width: 768px) {
+    top: auto;
+    bottom: 0;
+  }
+
+  &__logo {
+    height: 90%;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+
+    & img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__menu {
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4rem;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+
+    &-search {
+      position: relative;
+
+      & input {
+        width: 25rem;
+        height: 4rem;
+        font-size: 1.5rem;
+        color: v.$first-color-dark;
+        border: none;
+        border-radius: 1rem;
+        background: rgba(187, 197, 198, .75);
+        padding: 1rem 2rem;
+      }
+
+      & button {
+        position: absolute;
+        top: 55%;
+        right: 2.5%;
+        transform: translateY(-50%);
+        font-size: 2rem;
+        color: v.$first-color;
+        cursor: pointer;
+        transition: all .7s ease;
+
+        &hover {
+          color: v.$first-color-dark;
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    &-link {
+      display: grid;
+      place-items: center;
+      font-size: 2.5rem;
+      color: v.$first-color-dark;
+      transition: all .7s ease;
+
+      &:hover {
+        color: v.$dark-color;
+      }
+
+      & img {
+        width: 4rem;
+        height: 4rem;
+        object-fit: cover;
+        border-radius: 50%;
+        transition: all .7s ease;
+        
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  &__bottom {
+    width: 100%;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: 768px) {
+      display: flex;
+    }
+
+    &-link {
+      display: grid;
+      place-items: center;
+      font-size: 2.5rem;
+      color: v.$first-color-dark;
+
+      & img {
+        width: 2.75rem;
+        height: 2.75rem;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+  }
 }

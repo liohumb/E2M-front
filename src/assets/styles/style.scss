@@ -1,0 +1,76 @@
+/* VARIABLES */
+@use "variables" as v;
+
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+/* DEFAULT */
+* {
+  margin: 0;
+  box-sizing: border-box;
+
+  &:before,
+  &:after {
+    box-sizing: border-box;
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  font-family: v.$primary-font;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  line-height: 1.5;
+  background: v.$light-color;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
