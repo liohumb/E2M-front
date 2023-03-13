@@ -7,6 +7,10 @@
 
     &-left {
       width: 70%;
+
+      @media (max-width: 1024px) {
+        width: 100%;
+      }
     }
 
     &-right {
@@ -15,6 +19,37 @@
       right: 2rem;
       transform: translateY(-50%);
       width: 25%;
+
+      @media (max-width: 1024px) {
+        display: none;
+      }
+    }
+  }
+
+  &__details {
+    width: 100%;
+    display: none;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0 0 2.5rem 0;
+
+    @media (max-width: 1024px) {
+      display: flex;
+    }
+
+    &-localisation,
+    &-job {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      & span {
+        font-size: 1.5rem;
+      }
+
+      & i {
+        font-size: 2.5rem;
+      }
     }
   }
 
@@ -53,6 +88,55 @@
     }
   }
 
+  &__dots {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 12.5rem 0 0 0;
+
+    @media (max-width: 768px) {
+      display: flex;
+    }
+
+    & i {
+      font-size: 5rem;
+      color: v.$first-color-dark;
+      transition: all .7s ease;
+    }
+
+    &-modal {
+      width: 100%;
+      height: 10vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      transform: translateY(-100%);
+      opacity: 0;
+      z-index: -1;
+      transition: all .7s ease;
+
+      @media (max-width: 425px) {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+
+        & i {
+          width: 25%;
+          text-align: center;
+        }
+      }
+      
+      &--active {
+        transform: translateY(0);
+        opacity: 1;
+        z-index: 1;
+        transition: all .7s ease;
+      }
+    }
+  }
+
   &__infos {
     width: 100%;
     display: flex;
@@ -60,13 +144,21 @@
     justify-content: space-between;
     color: v.$first-color-dark;
 
+    @media (max-width: 768px) {
+      display: none;
+    }
+
     &-left,
     &-right {
       width: 40%;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      flex-direction: column;
+      gap: 2rem;
       padding: 1.5rem 4rem;
+    }
+
+    &-right {
+      flex-direction: column-reverse;
     }
 
     &-social,
@@ -75,8 +167,9 @@
       align-items: center;
       gap: 3rem;
 
+
       & i {
-        font-size: 4rem;
+        font-size: 3.5rem;
       }
     }
 
@@ -86,6 +179,10 @@
       align-items: center;
       gap: 1.5rem;
 
+      @media (max-width: 1024px) {
+        display: none;
+      }
+
       & i {
         font-size: 2.5rem;
       }
@@ -93,6 +190,12 @@
       & span {
         font-size: 1.5rem;
       }
+    }
+
+    &-contact,
+    &-localisation {
+      justify-content: flex-end;
+      text-align: end;
     }
   }
 
@@ -102,5 +205,18 @@
     flex-direction: column;
     gap: 8rem;
     padding: 6rem;
+    transition: all .7s ease;
+
+    @media (max-width: 768px) {
+      margin: -6rem 0 0 0;
+      padding: 0 2.5%;
+    }
+
+    &-active {
+      @media (max-width: 768px) {
+        margin: 0;
+        padding: 4rem 2.5%;
+      }
+    }
   }
 }

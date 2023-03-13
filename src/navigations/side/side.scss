@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     gap: 4rem;
-    padding: 4rem 2rem;
+    padding: 4rem 0;
   }
 
   &__button {
@@ -17,20 +17,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2.5%;
+    padding: 0 20%;
 
-    & span {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      font-size: 1.75rem;
-      border: .1rem solid v.$dark-color;
-      border-radius: 1.5rem;
-      padding: 1rem 1.75rem;
-
-      & i {
-        font-size: 2.5rem;
-      }
+    & i {
+      font-size: 5rem;
+      color: v.$first-color-dark;
     }
 
     &:after {
@@ -59,7 +50,7 @@
     }
 
     & p {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
     }
 
     &:after {

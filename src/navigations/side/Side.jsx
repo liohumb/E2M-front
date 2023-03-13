@@ -6,14 +6,8 @@ export default function Side() {
         <div className="side block">
             <div className="side__container">
                 <div className="side__button">
-                    <span>
                         <i className="bx bxs-user-plus"/>
-                        Ajouter
-                    </span>
-                    <span>
                         <i className="bx bxs-chat"/>
-                        Contacter
-                    </span>
                 </div>
                 <div className="side__description">
                     <h6>Description</h6>
