@@ -9,7 +9,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(87, 111, 114, .75);
+  background: v.$transparent-color;
+  z-index: 3;
   padding: 0 5%;
 
   @media (max-width: 768px) {
@@ -51,7 +52,7 @@
         color: v.$first-color-dark;
         border: none;
         border-radius: 1rem;
-        background: rgba(187, 197, 198, .75);
+        background: v.$transparent-color-light;
         padding: 1rem 2rem;
       }
 

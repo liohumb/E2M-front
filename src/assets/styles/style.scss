@@ -27,7 +27,7 @@ html {
 
 body {
   line-height: 1.5;
-  background: v.$light-color;
+  background: v.$transparent-color-light;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -49,6 +49,7 @@ h3,
 h4,
 h5,
 h6 {
+  color: v.$dark-color;
   overflow-wrap: break-word;
 }
 
@@ -73,4 +74,13 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+/* DEFAULT CLASSES */
+.block {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  border-radius: 1rem;
+  padding: 2rem;
 }
