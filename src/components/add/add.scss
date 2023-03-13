@@ -33,7 +33,7 @@
         border-radius: 5rem;
         background: v.$transparent-color-light;
         resize: none;
-        padding: 1.5rem 2.5rem;
+        padding: 1.75rem 2.5rem;
       }
     }
 
@@ -55,6 +55,10 @@
         & p {
           font-size: 1.5rem;
           color: v.$transparent-color-light;
+
+          @media (max-width: 768px) {
+            font-size: 1.25rem;
+          }
         }
       }
 

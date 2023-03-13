@@ -13,24 +13,28 @@ export default function Comments( { comments } ) {
 
     return (
         <div className="comments">
-            <button onClick={() =>
-                setCurrentCommentIndex(
-                    currentCommentIndex === 0
-                        ? comments.length - 1
-                        : currentCommentIndex - 1 )}>
-                <i className="bx bx-chevron-left"/>
-            </button>
+            {comments.length > 1 &&
+                <button onClick={() =>
+                    setCurrentCommentIndex(
+                        currentCommentIndex === 0
+                            ? comments.length - 1
+                            : currentCommentIndex - 1 )}>
+                    <i className="bx bx-chevron-left"/>
+                </button>
+            }
             <div className="comments__comment">
                 <p>{comments[currentCommentIndex].text}</p>
                 <span>{comments[currentCommentIndex].author}</span>
             </div>
-            <button onClick={() =>
-                setCurrentCommentIndex(
-                    currentCommentIndex === comments.length - 1
-                        ? 0
-                        : currentCommentIndex + 1 )}>
-                <i className="bx bx-chevron-right"/>
-            </button>
+            {comments.length > 1 &&
+                <button onClick={() =>
+                    setCurrentCommentIndex(
+                        currentCommentIndex === comments.length - 1
+                            ? 0
+                            : currentCommentIndex + 1 )}>
+                    <i className="bx bx-chevron-right"/>
+                </button>
+            }
         </div>
     )
 }

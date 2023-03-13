@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import Profil from '../profil/Profil'
 import Comments from '../comments/Comments'
 
@@ -14,10 +16,16 @@ const comments = [
         id: 2,
         text: 'Lorem dolor',
         author: 'Jane Doe'
-    },
+    }
 ]
 
 export default function Post() {
+    const [addComment, setAddComment] = useState(false)
+
+    const handleComment = () => {
+        setAddComment(true)
+    }
+
     return (
         <div className="post block">
             <div className="post__container">
@@ -31,16 +39,18 @@ export default function Post() {
                 </div>
                 <div className="post__interaction">
                     <i className="bx bx-heart"/>
+                    <i className="bx bx-message" onClick={handleComment}/>
                     <i className="bx bx-upload"/>
                 </div>
                 <div className="post__comments">
                     <Comments comments={comments}/>
-                    <form action="" className="post__comments-form">
-                        <textarea name="text" id="text" placeholder="Ajouter un commentaire"></textarea>
-                        <button type="submit">
-                            <i className="bx bx-message-add"/>
-                        </button>
-                    </form>
+                    {addComment &&
+                        <form action="" className="post__comments-form">
+                            <textarea name="text" id="text" placeholder="Ajouter un commentaire"></textarea>
+                            <button type="submit">
+                                <i className="bx bx-message-add"/>
+                            </button>
+                        </form>}
                 </div>
             </div>
         </div>

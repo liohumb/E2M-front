@@ -20,12 +20,21 @@
   }
 
   &__comment {
+    width: 100%;
     font-size: 1.75rem;
     color: v.$dark-color;
     text-align: center;
 
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+
     & span {
       font-size: 1.5rem;
+
+      @media (max-width: 768px) {
+        font-size: 1.25rem;
+      }
     }
   }
 }
