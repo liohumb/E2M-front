@@ -1,0 +1,106 @@
+@use "src/assets/styles/Variables" as v;
+
+.profils {
+  &__container {
+    position: relative;
+    width: 100%;
+
+    &-left {
+      width: 70%;
+    }
+
+    &-right {
+      position: fixed;
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
+      width: 25%;
+    }
+  }
+
+  &__pictures {
+    position: relative;
+    width: 100%;
+    height: 30vh;
+
+    &-banner {
+      width: 100%;
+      height: 100%;
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 2rem;
+      }
+    }
+
+    &-picture {
+      position: absolute;
+      left: 50%;
+      bottom: -40%;
+      transform: translateX(-50%);
+      width: 25rem;
+      height: 25rem;
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.4) 0 3rem 9rem;
+      }
+    }
+  }
+
+  &__infos {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: v.$first-color-dark;
+
+    &-left,
+    &-right {
+      width: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 4rem;
+    }
+
+    &-social,
+    &-contact {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+
+      & i {
+        font-size: 4rem;
+      }
+    }
+
+    &-localisation,
+    &-job {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+
+      & i {
+        font-size: 2.5rem;
+      }
+
+      & span {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &__post {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8rem;
+    padding: 6rem;
+  }
+}

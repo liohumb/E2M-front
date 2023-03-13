@@ -1,21 +1,6 @@
 @use "src/assets/styles/variables" as v;
 
 .home {
-  width: 100%;
-  display: grid;
-  place-items: center;
-  margin: 10rem 0 0 0;
-  padding: 0 4rem;
-
-  @media (max-width: 768px) {
-    margin: 4rem 0;
-  }
-
-  @media (max-width: 425px) {
-    padding: 0 2rem;
-    margin: 2rem 0;
-  }
-
   &__container {
     position: relative;
     width: 100%;

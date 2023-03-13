@@ -77,10 +77,27 @@ ul {
 }
 
 /* DEFAULT CLASSES */
+.section {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  margin: 10rem 0 0 0;
+  padding: 0 4rem;
+
+  @media (max-width: 768px) {
+    margin: 4rem 0;
+  }
+
+  @media (max-width: 425px) {
+    padding: 0 2rem;
+    margin: 2rem 0;
+  }
+}
+
 .block {
   width: 100%;
   display: grid;
   place-items: center;
-  border-radius: 1rem;
+  border-radius: 1.5rem;
   padding: 2rem;
 }

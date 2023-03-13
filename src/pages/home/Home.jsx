@@ -8,7 +8,7 @@ import './home.scss'
 
 export default function Home(  ) {
     return (
-        <main className="home">
+        <section className="home section">
             <div className="home__container">
                 <div className="home__container-left">
                     <Artisan/>
@@ -23,6 +23,6 @@ export default function Home(  ) {
                     <Suggest/>
                 </div>
             </div>
-        </main>
+        </section>
     )
 }
