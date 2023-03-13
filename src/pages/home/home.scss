@@ -11,6 +11,11 @@
     margin: 4rem 0;
   }
 
+  @media (max-width: 425px) {
+    padding: 0 2rem;
+    margin: 2rem 0;
+  }
+
   &__container {
     position: relative;
     width: 100%;

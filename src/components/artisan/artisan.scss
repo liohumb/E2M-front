@@ -1,7 +1,7 @@
 @use "src/assets/styles/Variables" as v;
 
 .artisan {
-  background: v.$transparent-color;
+  background: v.$first-color-light;
 
   &__container {
     width: 100%;

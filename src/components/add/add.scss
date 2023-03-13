@@ -1,7 +1,7 @@
 @use "src/assets/styles/Variables" as v;
 
 .add {
-  background: v.$first-color;
+  background: v.$transparent-color;
 
   &__form {
     width: 100%;
@@ -64,7 +64,8 @@
 
       & button {
         font-size: 1.75rem;
-        color: v.$first-color-light;
+        color: v.$light-color;
+        cursor: pointer;
       }
     }
   }

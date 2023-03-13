@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './comments.scss'
 
-export default function Comments( { comments } ) {
+export default function Comments( { comments, modal } ) {
     const [currentCommentIndex, setCurrentCommentIndex] = useState( 0 )
 
     useEffect( () => {
@@ -22,7 +22,7 @@ export default function Comments( { comments } ) {
                     <i className="bx bx-chevron-left"/>
                 </button>
             }
-            <div className="comments__comment">
+            <div className="comments__comment" onClick={modal}>
                 <p>{comments[currentCommentIndex].text}</p>
                 <span>{comments[currentCommentIndex].author}</span>
             </div>

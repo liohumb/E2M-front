@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import Profil from '../profil/Profil'
 import Comments from '../comments/Comments'
+import Modal from '../modal/Modal'
 
 import post from '../../assets/images/posts/post1.jpg'
 import './post.scss'
@@ -21,9 +22,14 @@ const comments = [
 
 export default function Post() {
     const [addComment, setAddComment] = useState(false)
+    const [openModal, setOpenModal] = useState(false)
 
     const handleComment = () => {
         setAddComment(true)
+    }
+
+    const handleModal = () => {
+        setOpenModal(true)
     }
 
     return (
@@ -32,7 +38,7 @@ export default function Post() {
                 <div className="post__artisan">
                     <Profil/>
                 </div>
-                <div className="post__content">
+                <div className="post__content" onClick={handleModal}>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis consequuntur cum
                         cupiditate...</p>
                     <img src={post} alt=" "/>
@@ -43,7 +49,7 @@ export default function Post() {
                     <i className="bx bx-upload"/>
                 </div>
                 <div className="post__comments">
-                    <Comments comments={comments}/>
+                    <Comments comments={comments} modal={handleModal}/>
                     {addComment &&
                         <form action="" className="post__comments-form">
                             <textarea name="text" id="text" placeholder="Ajouter un commentaire"></textarea>
@@ -53,6 +59,7 @@ export default function Post() {
                         </form>}
                 </div>
             </div>
+            {openModal && <Modal close={() => setOpenModal(false)}/>}
         </div>
     )
 }

@@ -1,13 +1,14 @@
 @use "src/assets/styles/Variables" as v;
 
 .post {
-  background: v.$transparent-color;
+  background: v.$first-color-light;
 
   &__container {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    padding: 1rem;
   }
 
   &__content {
@@ -18,6 +19,7 @@
 
     & p {
       font-size: 1.75rem;
+      cursor: nwse-resize;
 
       @media (max-width: 768px) {
         font-size: 1.5rem;
@@ -28,6 +30,7 @@
       width: 100%;
       object-fit: cover;
       border-radius: .75rem;
+      cursor: pointer;
     }
   }
 
@@ -82,6 +85,7 @@
       & button {
         font-size: 2.5rem;
         color: v.$dark-color;
+        cursor: pointer;
         padding: 0 1.25rem;
 
         @media (max-width: 425px) {
