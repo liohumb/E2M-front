@@ -33,7 +33,7 @@ export default function App() {
         <>
             <Header/>
             <Routes>
-                <Route path="/profil/:id" element={!user ? <Profils/> : <Navigate to="/connexion"/>}/>
+                <Route path="/profil/:id" element={user ? <Profils/> : <Navigate to="/connexion"/>}/>
                 <Route path="/inscription/:token" element={<Register/>}/>
                 <Route path="/connexion" element={user ? <Navigate to="/"/> : <Login/>}/>
                 <Route index path="/" element={<Home/>}/>
