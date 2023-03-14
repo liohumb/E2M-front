@@ -1,0 +1,72 @@
+@use "src/assets/styles/Variables" as v;
+
+.add {
+  background: v.$transparent-color;
+
+  &__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+
+    &-text {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+
+      & img {
+        width: 7.5rem;
+        height: 7.5rem;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      & textarea {
+        width: 100%;
+        height: 5.5rem;
+        font-size: 1.5rem;
+        border: none;
+        border-radius: 5rem;
+        background: v.$transparent-color-light;
+        resize: none;
+        padding: 1.75rem 2.5rem;
+      }
+    }
+
+    &-image {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+
+      &--input {
+        width: 55%;
+        height: 5.5rem;
+        display: grid;
+        place-items: center;
+        background: v.$first-color-dark;
+        border-radius: .75rem;
+        cursor: copy;
+
+        & p {
+          font-size: 1.5rem;
+          color: v.$transparent-color-light;
+
+          @media (max-width: 768px) {
+            font-size: 1.25rem;
+          }
+        }
+      }
+
+      & button {
+        font-size: 1.75rem;
+        color: v.$light-color;
+        cursor: pointer;
+      }
+    }
+  }
+}

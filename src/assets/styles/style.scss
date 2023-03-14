@@ -27,7 +27,7 @@ html {
 
 body {
   line-height: 1.5;
-  background: v.$light-color;
+  background: v.$transparent-color-light;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -49,6 +49,7 @@ h3,
 h4,
 h5,
 h6 {
+  color: v.$dark-color;
   overflow-wrap: break-word;
 }
 
@@ -73,4 +74,30 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+/* DEFAULT CLASSES */
+.section {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  margin: 10rem 0 0 0;
+  padding: 0 4rem;
+
+  @media (max-width: 768px) {
+    margin: 4rem 0;
+  }
+
+  @media (max-width: 520px) {
+    padding: 0 2rem;
+    margin: 2rem 0;
+  }
+}
+
+.block {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  border-radius: 1.5rem;
+  padding: 2rem;
 }

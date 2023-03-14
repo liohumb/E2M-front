@@ -1,0 +1,41 @@
+@use "src/assets/styles/Variables" as v;
+
+.comments {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & button {
+    font-size: 3rem;
+    color: v.$first-color-dark;
+    cursor: pointer;
+    transition: all .7s ease;
+    
+    &:hover {
+      transform: scale(1.05);
+      color: v.$dark-color;
+    }
+  }
+
+  &__comment {
+    width: 100%;
+    font-size: 1.75rem;
+    color: v.$dark-color;
+    text-align: center;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+    }
+
+    & span {
+      font-size: 1.5rem;
+
+      @media (max-width: 768px) {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
