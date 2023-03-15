@@ -20,7 +20,7 @@ export default function Register() {
     useEffect(() => {
         async function verifyToken() {
             try {
-                const response = await fetch(`http://localhost:8080/new-users/${token}`)
+                const response = await fetch(`http://localhost:8080/new-user/${token}`)
                 const data = await response.json()
 
                 if (data === false) {
@@ -76,7 +76,7 @@ export default function Register() {
         }
 
         try {
-            const response = await fetch('http://localhost:8080/auth/register', {
+            const response = await fetch('http://localhost:8080/auth/inscription', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
