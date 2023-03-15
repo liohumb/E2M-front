@@ -8,6 +8,7 @@ import './header.scss'
 
 export default function Header(  ) {
     const {user} = useContext(Context)
+    console.log(user)
 
     return (
         <header className="header">
@@ -32,7 +33,7 @@ export default function Header(  ) {
                     <i className="bx bx-help-circle"/>
                 </Link>
                 {user ?
-                    <Link to="/profil/:id" className="header__menu-link">
+                    <Link to={`/profil/${user._id}`} className="header__menu-link">
                         <img src={profil} alt={user.name}/>
                     </Link>
                 :
