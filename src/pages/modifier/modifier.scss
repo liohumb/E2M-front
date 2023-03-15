@@ -1,0 +1,93 @@
+@use "src/assets/styles/Variables" as v;
+
+.modifier {
+    &__container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        i{
+            font-size: 2.5rem;
+        }
+        &-element {
+            .box {
+                margin: 1rem;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                &-name {
+                    
+                    font-size: 1rem;
+                    .cont{
+                        display: flex;
+                        align-items: center; 
+                        justify-content: space-between;
+                    }
+
+                    h1 {
+                        font-size: 3rem;
+                    }
+
+                    h2 {
+                        font-size: 1.5rem;
+                    }
+
+                    label {
+                        font-size: 1.5rem;
+                    }
+
+                    input {
+                        margin: 1rem;
+                        font-size: 1.5rem;
+                        border: 1rem;
+                        background-color: v.$first-color-light;
+                    }
+                }
+                &-img {
+                    margin: 1rem;
+                    width: 50%;
+                    img {
+                        border: 0.1rem;
+                        border-radius: 50%;
+  
+                    }
+                }
+            }
+        }
+        &-modifs{
+           
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            h1{
+                margin: 0rem 5rem;
+            }
+        }
+
+
+        .box-left {
+            width: 40vh;
+            height: 70vh;
+            margin: 1rem;
+
+            border: 0.1rem;
+            border-radius: 1rem;
+
+            background-color: v.$first-color-light;
+        }
+        .box-right {
+            margin: 1rem;
+            width: 100vh;
+            height: 5vh;
+
+            border: 0.1rem;
+            border-radius: 1rem;
+
+            background-color: v.$first-color-light;
+        }
+
+
+
+    }
+}

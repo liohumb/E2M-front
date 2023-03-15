@@ -9,6 +9,7 @@ import Home from './pages/home/Home'
 import Profils from './pages/profils/Profils'
 
 import './assets/styles/style.scss'
+import Modifier from './pages/modifier/modifier'
 
 export default function App() {
     const { user } = useContext( Context )
@@ -36,6 +37,7 @@ export default function App() {
                 <Route path="/profil/:id" element={user ? <Profils/> : <Navigate to="/connexion"/>}/>
                 <Route path="/inscription/:token" element={<Register/>}/>
                 <Route path="/connexion" element={user ? <Navigate to="/"/> : <Login/>}/>
+                <Route path="/profil/:id/modifier" element={<Modifier />}/>
                 <Route index path="/" element={<Home/>}/>
             </Routes>
         </>
