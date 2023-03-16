@@ -1,99 +1,100 @@
 @use "src/assets/styles/Variables" as v;
 
 .pictures {
+  position: relative;
+  width: 100%;
+  height: 30vh;
+  z-index: 1;
+
+  &__banner {
     position: relative;
     width: 100%;
-    height: 30vh;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-radius: 2rem;
 
-    &__banner {
-      position: relative;
+    & img {
       width: 100%;
       height: 100%;
+      object-fit: cover;
+    }
+
+    &-form {
+      position: absolute;
+      right: -15%;
+      bottom: -30%;
       display: grid;
       place-items: center;
-      overflow: hidden;
-      border-radius: 2rem;
+      background: v.$first-color;
+      border-radius: 2rem 0 0 0;
+      padding: 2rem 4rem;
+      transition: all .7s ease;
 
-      & img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+      label {
+        font-size: 4rem;
+        color: v.$light-color;
+        cursor: pointer;
       }
 
-      &-form {
-        position: absolute;
-        right: -15%;
-        bottom: -30%;
-        display: grid;
-        place-items: center;
-        background: v.$first-color;
-        border-radius: 2rem 0 0 0;
-        padding: 2rem 4rem;
-        transition: all .7s ease;
-
-        label {
-          font-size: 4rem;
-          color: v.$light-color;
-          cursor: pointer;
-        }
-
-        input {
-          display: none;
-        }
-      }
-
-      &:hover &-form {
-        right: 0;
-        bottom: -5%;
+      input {
+        display: none;
       }
     }
 
-    &__picture {
-      position: absolute;
-      left: 50%;
-      bottom: -40%;
-      transform: translateX(-50%);
-      width: 25rem;
-      height: 25rem;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      overflow: hidden;
-      box-shadow: rgba(0, 0, 0, 0.4) 0 3rem 9rem;
-      background: v.$light-color;
-
-      & img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      &-form {
-        position: absolute;
-        left: 50%;
-        bottom: -50%;
-        transform: translateX(-50%);
-        width: 100%;
-        display: grid;
-        place-items: center;
-        background: v.$first-color;
-        padding: 1.5rem 4rem;
-        transition: all .7s ease;
-
-        label {
-          font-size: 4rem;
-          color: v.$light-color;
-          cursor: pointer;
-        }
-
-        input {
-          display: none;
-        }
-      }
-
-      &:hover &-form {
-        left: 50%;
-        bottom: -5%;
-      }
+    &:hover &-form {
+      right: 0;
+      bottom: -5%;
     }
   }
+
+  &__picture {
+    position: absolute;
+    left: 50%;
+    bottom: -40%;
+    transform: translateX(-50%);
+    width: 25rem;
+    height: 25rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 3rem 9rem;
+    background: v.$light-color;
+
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &-form {
+      position: absolute;
+      left: 50%;
+      bottom: -50%;
+      transform: translateX(-50%);
+      width: 100%;
+      display: grid;
+      place-items: center;
+      background: v.$first-color;
+      padding: 1.5rem 4rem;
+      transition: all .7s ease;
+
+      label {
+        font-size: 4rem;
+        color: v.$light-color;
+        cursor: pointer;
+      }
+
+      input {
+        display: none;
+      }
+    }
+
+    &:hover &-form {
+      left: 50%;
+      bottom: -5%;
+    }
+  }
+}

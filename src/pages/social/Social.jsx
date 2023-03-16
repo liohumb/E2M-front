@@ -22,7 +22,6 @@ export default function Social() {
     const [selectedSocial, setSelectedSocial] = useState( socialNetworks[0] )
     const [socialUrl, setSocialUrl] = useState( '' )
 
-
     useEffect( () => {
         const fetchSocials = async () => {
             try {
@@ -56,23 +55,36 @@ export default function Social() {
     }
 
 
-    const updateSocialInDB = async (id, updatedSocial) => {
+    const updateSocialInDB = async ( id, updatedSocial ) => {
         try {
             const updatedSocialWithUser = {
                 ...updatedSocial,
-                user: user._id,
-            };
+                user: user._id
+            }
+
 
             const response = await axios.put(
                 `http://localhost:8080/social/${id}`,
                 updatedSocialWithUser
-            );
-            return response.data;
+            )
+            return response.data
         } catch (error) {
-            console.error('Error updating social in database:', error);
-            return null;
+            console.error( 'Error updating social in database:', error )
+            return null
         }
-    };
+    }
+
+    const deleteSocialFromDB = async ( id ) => {
+        try {
+            await axios.delete( `http://localhost:8080/social/${id}`, {
+                data: {
+                    user: user._id
+                }
+            } )
+        } catch (e) {
+            console.error( e )
+        }
+    }
 
 
     const handleAddSocial = async ( e ) => {
@@ -112,6 +124,15 @@ export default function Social() {
         )
     }
 
+    const handleDeleteSocial = async (id) => {
+        const confirmation = window.confirm("Voulez-vous vraiment supprimer ce réseau social ?");
+
+        if (confirmation) {
+            await deleteSocialFromDB(id);
+            setAddedSocials(addedSocials.filter((social) => social._id !== id));
+        }
+    };
+
     return (
         <section className="social section">
             <div className="social__container">
@@ -123,6 +144,7 @@ export default function Social() {
                             onSubmit={( e ) => handleUpdateSocial( e, social._id )}
                             className="form social__form"
                         >
+                            <i className="bx bx-trash" onClick={() => handleDeleteSocial( social._id )}/>
                             <div className="form__content">
                                 <label htmlFor={`name-${social._id}`}></label>
                                 <select
