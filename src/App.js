@@ -7,6 +7,7 @@ import Login from './authentification/login/Login'
 import Register from './authentification/register/Register'
 import Home from './pages/home/Home'
 import Profils from './pages/profils/Profils'
+import Modification from './pages/modification/Modification'
 
 import './assets/styles/style.scss'
 
@@ -33,6 +34,7 @@ export default function App() {
         <>
             <Header/>
             <Routes>
+                <Route path="/profil/:id/modifier" element={<Modification/>}/>
                 <Route path="/profil/:id" element={user ? <Profils/> : <Navigate to="/connexion"/>}/>
                 <Route path="/inscription/:token" element={<Register/>}/>
                 <Route path="/connexion" element={user ? <Navigate to="/"/> : <Login/>}/>

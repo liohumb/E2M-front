@@ -8,7 +8,6 @@ import './header.scss'
 
 export default function Header(  ) {
     const {user} = useContext(Context)
-    console.log(user)
 
     return (
         <header className="header">
@@ -34,7 +33,8 @@ export default function Header(  ) {
                 </Link>
                 {user ?
                     <Link to={`/profil/${user._id}`} className="header__menu-link">
-                        <img src={profil} alt={user.name}/>
+                        <img src={`http://localhost:8080/images/${user.picture}`}
+                             alt={user.firstname + ' ' + user.lastname}/>
                     </Link>
                 :
                     <Link to="/connexion" className="header__menu-link">

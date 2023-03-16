@@ -1,12 +1,13 @@
-import { useState } from 'react'
-import Side from '../../navigations/side/Side'
+import { useEffect, useState } from 'react'
 
-import banner from '../../assets/images/user/banner.jpg'
-import profil from '../../assets/images/user/profil.png'
+import Side from '../../navigations/side/Side'
+import Pictures from '../../components/pictures/Pictures'
 import './profils.scss'
 import Post from '../../components/post/Post'
+import axios from 'axios'
 
 export default function Profils(  ) {
+    const [posts, setPosts] = useState( [] )
     const [showIcons, setShowIcons] = useState(false)
 
     const handleIcons = () => {
@@ -16,6 +17,20 @@ export default function Profils(  ) {
             setShowIcons(true)
         }
     }
+
+    useEffect( () => {
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.get( `http://localhost:8080/post` )
+                setPosts( response.data )
+            } catch (e) {
+                console.error( e )
+            }
+        }
+
+        fetchPosts()
+    }, [] )
+
     return (
         <section className="profils section">
             <div className="profils__container">
@@ -30,14 +45,7 @@ export default function Profils(  ) {
                             <i className="bx bx-briefcase"/>
                         </div>
                     </div>
-                    <div className="profils__pictures">
-                        <div className="profils__pictures-banner">
-                            <img src={banner} alt=" "/>
-                        </div>
-                        <div className="profils__pictures-picture">
-                            <img src={profil} alt=" "/>
-                        </div>
-                    </div>
+                    <Pictures/>
                     <div className="profils__dots">
                         <i className={`bx ${showIcons ? 'bx-x' : 'bx-dots-horizontal-rounded'}`} onClick={handleIcons}/>
                         <div className={`profils__dots-modal ${showIcons && 'profils__dots-modal--active'}`}>
@@ -72,9 +80,9 @@ export default function Profils(  ) {
                         </div>
                     </div>
                     <div className={`profils__post ${showIcons && 'profils__post-active'}`}>
-                        <Post/>
-                        <Post/>
-                        <Post/>
+                        {posts.reverse().map( ( post ) => (
+                            <Post key={post._id} post={post}/>
+                        ) )}
                     </div>
                 </div>
                 <div className="profils__container-right">
