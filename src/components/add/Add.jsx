@@ -1,67 +1,65 @@
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom'
-import { Context } from '../../context/Context';
-import Dropzone from 'react-dropzone';
-import axios from 'axios';
+import { useState, useContext } from 'react'
+import { Context } from '../../context/Context'
+import Dropzone from 'react-dropzone'
+import axios from 'axios'
 
-import profil from '../../assets/images/user/profil.png';
-import './add.scss';
+import './add.scss'
 
 export default function Add() {
-    const { user } = useContext(Context);
-    const navigate = useNavigate()
+    const { user } = useContext( Context )
 
-    const [content, setContent] = useState('');
-    const [file, setFile] = useState(null);
+    const [content, setContent] = useState( '' )
+    const [file, setFile] = useState( null )
 
-    const handleTextChange = (e) => {
-        setContent(e.target.value);
-    };
+    const handleTextChange = ( e ) => {
+        setContent( e.target.value )
+    }
 
-    const onDrop = (acceptedFiles) => {
+    const onDrop = ( acceptedFiles ) => {
         if (acceptedFiles.length > 0) {
-            setFile(acceptedFiles[0]);
+            setFile( acceptedFiles[0] )
         }
-    };
+    }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async ( e ) => {
+        e.preventDefault()
 
         const newPost = {
-            author: user.firstname,
+            author: user._id,
             content: content,
-            picture: file,
-        };
+            picture: file
+        }
 
         if (file) {
-            const data = new FormData();
-            const fileName = Date.now() + file.name;
+            const data = new FormData()
+            const fileName = Date.now() + file.name
 
-            data.append('name', fileName);
-            data.append('file', file);
+            data.append( 'name', fileName )
+            data.append( 'file', file )
 
-            newPost.picture = fileName;
+            newPost.picture = fileName
 
             try {
-                await axios.post('http://localhost:8080/upload', data);
+                await axios.post( 'http://localhost:8080/upload', data )
             } catch (e) {
-                console.log(e);
+                console.log( e )
             }
         }
 
         try {
-            await axios.post('http://localhost:8080/post', newPost);
-            navigate('/')
+            await axios.post( 'http://localhost:8080/post', newPost )
+
         } catch (e) {
-            console.log(e);
+            console.log( e )
         }
-    };
+    }
 
     return (
         <div className="add block">
             <form action="" className="add__form" onSubmit={handleSubmit}>
                 <div className="add__form-text">
-                    <img src={profil} alt=" " />
+                    <img src={`http://localhost:8080/images/${user.picture}`}
+                         alt={user.firstname + ' ' + user.lastname}/>
                     <textarea
                         name="content"
                         id="content"
@@ -72,7 +70,7 @@ export default function Add() {
                 </div>
                 <div className="add__form-image">
                     <Dropzone onDrop={onDrop}>
-                        {({ getRootProps, getInputProps }) => (
+                        {( { getRootProps, getInputProps } ) => (
                             <div {...getRootProps()} className="add__form-image--input">
                                 <input {...getInputProps()} />
                                 {file ? (
@@ -87,5 +85,5 @@ export default function Add() {
                 </div>
             </form>
         </div>
-    );
+    )
 }

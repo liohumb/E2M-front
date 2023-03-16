@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Context } from '../../context/Context'
 import axios from 'axios'
 
@@ -12,6 +12,20 @@ import './home.scss'
 
 export default function Home() {
     const { user } = useContext( Context )
+    const [posts, setPosts] = useState( [] )
+
+    useEffect( () => {
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.get( `http://localhost:8080/post` )
+                setPosts( response.data )
+            } catch (e) {
+                console.error( e )
+            }
+        }
+
+        fetchPosts()
+    }, [] )
 
     return (
         <section className="home section">
@@ -21,8 +35,9 @@ export default function Home() {
                 </div>
                 <div className="home__container-middle">
                     {user && <Add/>}
-                    <Post/>
-                    <Post/>
+                    {posts.reverse().map( ( post ) => (
+                        <Post key={post._id} post={post}/>
+                    ) )}
                 </div>
                 <div className="home__container-right">
                     <Sponsor/>

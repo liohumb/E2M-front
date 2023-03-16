@@ -1,7 +1,12 @@
-import './side.scss'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { Context } from '../../context/Context'
+
+import './side.scss'
 
 export default function Side() {
+    const {user} = useContext(Context)
+
     return (
         <div className="side block">
             <div className="side__container">
@@ -17,7 +22,7 @@ export default function Side() {
                 </div>
                 <div className="side__edit">
                     <Link to="/" className="side__edit-link">Mes statistiques</Link>
-                    <Link to="/" className="side__edit-link">Modifier informations</Link>
+                    <Link to={`/profil/${user._id}/modifier`} className="side__edit-link">Modifier informations</Link>
                     <Link to="/" className="side__edit-link">Modifier mot de passe</Link>
                     <Link to="/" className="side__edit-link">Déconnexion</Link>
                 </div>

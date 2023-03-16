@@ -53,41 +53,6 @@
     }
   }
 
-  &__pictures {
-    position: relative;
-    width: 100%;
-    height: 30vh;
-
-    &-banner {
-      width: 100%;
-      height: 100%;
-
-      & img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 2rem;
-      }
-    }
-
-    &-picture {
-      position: absolute;
-      left: 50%;
-      bottom: -40%;
-      transform: translateX(-50%);
-      width: 25rem;
-      height: 25rem;
-
-      & img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 50%;
-        box-shadow: rgba(0, 0, 0, 0.4) 0 3rem 9rem;
-      }
-    }
-  }
-
   &__dots {
     width: 100%;
     display: none;
