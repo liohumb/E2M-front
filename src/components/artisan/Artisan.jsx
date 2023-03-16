@@ -1,16 +1,35 @@
+import { useContext, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { Context } from '../../context/Context'
+import axios from 'axios'
+
 import profil from '../../assets/images/user/profil.png'
 import './artisan.scss'
-import { Link } from 'react-router-dom'
 
 export default function Artisan(  ) {
+    const {user} = useContext(Context)
+    const [artisan, setArtisan] = useState('')
+
+    useEffect( () => {
+        const getInfo = async () => {
+            const response = await axios.get(`http://localhost:8080/user/${user._id}`)
+            setArtisan(response.data)
+        }
+
+        if (user && user._id) {
+            getInfo()
+        }
+    }, [user] )
+
     return (
         <div className="artisan block">
             <div className="artisan__container">
                 <div className="artisan__profil">
                     <div className="artisan__profil-infos">
-                        <img src={profil} alt=" "/>
+                        <img src={`http://localhost:8080/images/${artisan.picture}`}
+                             alt={artisan.firstname + ' ' + artisan.lastname}/>
                         <div className="artisan__profil-infos--info">
-                            <h4>John Doe</h4>
+                            <h4>{artisan.firstname + ' ' + artisan.lastname}</h4>
                             <span>Suivi par 231 utilisateurs</span>
                         </div>
                     </div>
@@ -21,7 +40,7 @@ export default function Artisan(  ) {
                 <div className="artisan__activity">
                     <div className="artisan__activity-info">
                         <i className="bx bx-map"/>
-                        <span>59960 Neuville en Ferrain</span>
+                        <span>{artisan.postcode}</span>
                     </div>
                     <div className="artisan__activity-info">
                         <i className="bx bx-briefcase"/>

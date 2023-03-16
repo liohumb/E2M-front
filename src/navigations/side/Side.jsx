@@ -5,7 +5,11 @@ import { Context } from '../../context/Context'
 import './side.scss'
 
 export default function Side() {
-    const {user} = useContext(Context)
+    const {user, dispatch} = useContext(Context)
+
+    const handleLogout = () => {
+      dispatch({type: 'LOGOUT'})
+    }
 
     return (
         <div className="side block">
@@ -24,7 +28,7 @@ export default function Side() {
                     <Link to="/" className="side__edit-link">Mes statistiques</Link>
                     <Link to={`/profil/${user._id}/modifier`} className="side__edit-link">Modifier informations</Link>
                     <Link to={`/profil/${user._id}/modifier-mot-de-passe`} className="side__edit-link">Modifier mot de passe</Link>
-                    <Link to="/" className="side__edit-link">Déconnexion</Link>
+                    <button className="side__edit-link" onClick={handleLogout}>Déconnexion</button>
                 </div>
             </div>
         </div>

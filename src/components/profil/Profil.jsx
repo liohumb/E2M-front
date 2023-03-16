@@ -20,12 +20,10 @@ export default function Profil( { author = '' } ) {
     }, [author] )
 
     if (profil && profil.picture) {
-        const picture = `http://localhost:8080/images/${profil.picture}`
-
         return (
             <div className="profil">
                 <div className="profil__artisan">
-                    <img src={picture} alt=" "/>
+                    <img src={`http://localhost:8080/images/${profil.picture}`} alt=" "/>
                     <div className="profil__artisan-infos">
                         <h6>{profil.firstname} {profil.lastname}</h6>
                         <span>{profil.society}</span>
