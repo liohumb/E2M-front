@@ -23,7 +23,7 @@ export default function Side() {
                 <div className="side__edit">
                     <Link to="/" className="side__edit-link">Mes statistiques</Link>
                     <Link to={`/profil/${user._id}/modifier`} className="side__edit-link">Modifier informations</Link>
-                    <Link to="/" className="side__edit-link">Modifier mot de passe</Link>
+                    <Link to={`/profil/${user._id}/modifier-mot-de-passe`} className="side__edit-link">Modifier mot de passe</Link>
                     <Link to="/" className="side__edit-link">Déconnexion</Link>
                 </div>
             </div>
