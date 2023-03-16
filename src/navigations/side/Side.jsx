@@ -27,6 +27,7 @@ export default function Side() {
                 <div className="side__edit">
                     <Link to="/" className="side__edit-link">Mes statistiques</Link>
                     <Link to={`/profil/${user._id}/modifier`} className="side__edit-link">Modifier informations</Link>
+                    <Link to={`/profil/${user._id}/reseaux-social`} className="side__edit-link">Vos réseaux sociaux</Link>
                     <Link to={`/profil/${user._id}/modifier-mot-de-passe`} className="side__edit-link">Modifier mot de passe</Link>
                     <button className="side__edit-link" onClick={handleLogout}>Déconnexion</button>
                 </div>
