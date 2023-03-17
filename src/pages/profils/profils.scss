@@ -28,13 +28,13 @@
 
   &__details {
     width: 100%;
-    display: none;
+    display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    padding: 0 0 2.5rem 0;
+    justify-content: space-between;
+    padding: 0 5rem 2.5rem 5rem;
 
-    @media (max-width: 1024px) {
-      display: flex;
+    @media (max-width: 768px) {
+      padding: 0 0 2.5rem 0;
     }
 
     &-localisation,
@@ -50,6 +50,16 @@
       & i {
         font-size: 2.5rem;
       }
+
+      @media (max-width: 768px) {
+        & span {
+          font-size: 1.25rem;
+        }
+
+        & i {
+          font-size: 2rem;
+        }
+      }
     }
   }
 
@@ -59,7 +69,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    padding: 12.5rem 0 0 0;
+    padding: 4rem 0 0 0;
 
     @media (max-width: 768px) {
       display: flex;
@@ -135,25 +145,6 @@
 
       & i {
         font-size: 3.5rem;
-      }
-    }
-
-    &-localisation,
-    &-job {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-
-      @media (max-width: 1024px) {
-        display: none;
-      }
-
-      & i {
-        font-size: 2.5rem;
-      }
-
-      & span {
-        font-size: 1.5rem;
       }
     }
 

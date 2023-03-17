@@ -77,12 +77,16 @@ export default function Artisan(  ) {
                     <h4>Vos réseaux</h4>
                     {socials.map( ( social ) => (
                         <div key={social._id} className="artisan__social-infos">
-                            <div className="artisan__social-infos--info">
-                                <i className={`bx bxl-${(social.name).toLowerCase()}`}/>
+                            <Link to={social.url} target="_blank" className="artisan__social-infos--info">
+                                {social.name === "Site internet" ?
+                                    <i className='bx bx-code-block'></i>
+                                :
+                                    <i className={`bx bxl-${(social.name).toLowerCase()}`}/>
+                                }
                                 <div className="artisan__social-infos--info---name">
                                     <h6>{social.name}</h6>
                                 </div>
-                            </div>
+                            </Link>
                             <Link to={`/profil/${user._id}/reseaux-social`} className="artisan__social-infos--edit">
                                 <i className="bx bxs-pencil"/>
                             </Link>

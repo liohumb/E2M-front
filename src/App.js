@@ -36,9 +36,9 @@ export default function App() {
         <>
             <Header/>
             <Routes>
-                <Route path="/profil/:id/modifier-mot-de-passe" element={<Password/>}/>
-                <Route path="/profil/:id/reseaux-social" element={<Social/>}/>
-                <Route path="/profil/:id/modifier" element={<Modification/>}/>
+                <Route path="/profil/:id/modifier-mot-de-passe" element={user ? <Password/> : <Navigate to="/connexion"/>}/>
+                <Route path="/profil/:id/reseaux-social" element={user ? <Social/> : <Navigate to="/connexion"/>}/>
+                <Route path="/profil/:id/modifier" element={user ? <Modification/> : <Navigate to="/connexion"/>}/>
                 <Route path="/profil/:id" element={user ? <Profils/> : <Navigate to="/connexion"/>}/>
                 <Route path="/inscription/:token" element={<Register/>}/>
                 <Route path="/connexion" element={user ? <Navigate to="/"/> : <Login/>}/>

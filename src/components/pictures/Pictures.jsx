@@ -3,9 +3,11 @@ import axios from 'axios'
 import { Context } from '../../context/Context'
 
 import './pictures.scss'
+import { useParams } from 'react-router-dom'
 
 export default function Pictures() {
     const { user } = useContext( Context )
+    const id = useParams().id
 
     const [banner, setBanner] = useState( '' )
     const [picture, setPicture] = useState( '' )
@@ -15,14 +17,12 @@ export default function Pictures() {
 
     useEffect( () => {
         const getInfo = async () => {
-            const response = await axios.get( `http://localhost:8080/user/${user._id}` )
+            const response = await axios.get( `http://localhost:8080/user/${id}` )
             setBanner( response.data.banner )
             setPicture( response.data.picture )
         }
-        if (user && user._id) {
-            getInfo()
-        }
-    }, [user] )
+        getInfo()
+    }, [id] )
 
     useEffect( () => {
         const checkImage = async ( imageName ) => {
@@ -34,8 +34,8 @@ export default function Pictures() {
             }
         }
 
-        if (picture) {
-            checkImage( picture )
+        if (picture && picture !== '') {
+            checkImage(picture)
         }
     }, [picture] )
 
@@ -49,8 +49,8 @@ export default function Pictures() {
             }
         }
 
-        if (banner) {
-            checkImage( banner )
+        if (banner && banner !== '') {
+            checkImage(banner)
         }
     }, [banner] )
 
@@ -124,21 +124,23 @@ export default function Pictures() {
 
     return (
         <div className="pictures">
-            <div className="pictures__banner">
-                <img src={bannerUrl || `http://localhost:8080/images/${banner}`} alt=" "/>
-                <form action="" className="pictures__banner-form">
-                    <label htmlFor="banner">
-                        <i className="bx bxs-image-add"/>
-                    </label>
-                    <input
-                        type="file"
-                        name="banner"
-                        id="banner"
-                        onChange={handleBannerUpdate}
-                    />
-                </form>
-            </div>
-            <div className="pictures__picture">
+            {user.role === 'ARTISAN' &&
+                <div className="pictures__banner">
+                    <img src={bannerUrl || `http://localhost:8080/images/${banner}`} alt=" "/>
+                    <form action="" className="pictures__banner-form">
+                        <label htmlFor="banner">
+                            <i className="bx bxs-image-add"/>
+                        </label>
+                        <input
+                            type="file"
+                            name="banner"
+                            id="banner"
+                            onChange={handleBannerUpdate}
+                        />
+                    </form>
+                </div>
+            }
+            <div className="pictures__picture pictures__picture-alt">
                 <img
                     src={pictureUrl || `http://localhost:8080/images/${picture}`}
                     alt={user.firstname + ' ' + user.lastname}

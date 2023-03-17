@@ -12,7 +12,8 @@ const socialNetworks = [
     'LinkedIn',
     'Pinterest',
     'TikTok',
-    'SnapChat'
+    'SnapChat',
+    'Site internet'
 ]
 
 export default function Social() {
@@ -181,15 +182,15 @@ export default function Social() {
                             <label htmlFor="new-social-name"></label>
                             <select
                                 value={selectedSocial}
-                                onChange={( e ) => setSelectedSocial( e.target.value )}
+                                onChange={(e) => setSelectedSocial(e.target.value)}
                                 name="new-social-name"
                                 id="new-social-name"
                             >
-                                {socialNetworks.map( ( network ) => (
+                                {socialNetworks.map((network) => (
                                     <option key={network} value={network}>
                                         {network}
                                     </option>
-                                ) )}
+                                ))}
                             </select>
                         </div>
                         <div className="form__content">

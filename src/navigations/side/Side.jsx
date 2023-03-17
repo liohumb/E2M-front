@@ -1,11 +1,12 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Context } from '../../context/Context'
 
 import './side.scss'
 
-export default function Side() {
+export default function Side({name, society, description}) {
     const {user, dispatch} = useContext(Context)
+    const userId = useParams()
 
     const handleLogout = () => {
       dispatch({type: 'LOGOUT'})
@@ -14,20 +15,26 @@ export default function Side() {
     return (
         <div className="side block">
             <div className="side__container">
-                <div className="side__button">
+                    <h4>{name}</h4>
+                <span>{society}</span>
+                {userId.id !== user._id &&
+                    <div className="side__button">
                         <i className="bx bxs-user-plus"/>
                         <i className="bx bxs-chat"/>
-                </div>
-                <div className="side__description">
-                    <h6>Description</h6>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium cum dolore in ipsam officia
-                        option sed! Liquid dol oribus error esse, ipsam maxime numquam qua. Culpa dolorous eos
-                        excitation impedit repellents.</p>
-                </div>
+                    </div>}
+                {description &&
+                    <div className="side__description">
+                        <h6>Description</h6>
+                        <p>{description}</p>
+                    </div>}
                 <div className="side__edit">
-                    <Link to="/" className="side__edit-link">Mes statistiques</Link>
+                    {user && user.role === 'ARTISAN' &&
+                        <Link to="/" className="side__edit-link">Mes statistiques</Link>
+                    }
                     <Link to={`/profil/${user._id}/modifier`} className="side__edit-link">Modifier informations</Link>
-                    <Link to={`/profil/${user._id}/reseaux-social`} className="side__edit-link">Vos réseaux sociaux</Link>
+                    {user && user.role === 'ARTISAN' &&
+                        <Link to={`/profil/${user._id}/reseaux-social`} className="side__edit-link">Vos réseaux sociaux</Link>
+                    }
                     <Link to={`/profil/${user._id}/modifier-mot-de-passe`} className="side__edit-link">Modifier mot de passe</Link>
                     <button className="side__edit-link" onClick={handleLogout}>Déconnexion</button>
                 </div>
