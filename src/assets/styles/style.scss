@@ -92,8 +92,34 @@ ul {
     padding: 0 2rem;
     margin: 2rem 0;
   }
+
+  &__container {
+    position: relative;
+    width: 100%;
+
+    &-left {
+      width: 70%;
+
+      @media (max-width: 1024px) {
+        width: 100%;
+      }
+    }
+
+    &-right {
+      position: fixed;
+      top: 55%;
+      right: 2rem;
+      transform: translateY(-50%);
+      width: 25%;
+
+      @media (max-width: 1024px) {
+        display: none;
+      }
+    }
+  }
 }
 
+/* BLOCKS */
 .block {
   width: 100%;
   display: grid;

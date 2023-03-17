@@ -77,8 +77,8 @@ export default function Profils() {
 
     return (
         <section className="profils section">
-            <div className="profils__container">
-                <div className="profils__container-left">
+            <div className="profils__container section__container">
+                <div className="profils__container-left section__container-left">
                     {user && user.role === 'ARTISAN' &&
                         <div className="profils__details">
                             <div className="profils__details-localisation">
@@ -134,7 +134,7 @@ export default function Profils() {
                         ) )}
                     </div>
                 </div>
-                <div className="profils__container-right">
+                <div className="profils__container-right section__container-right">
                     <Side name={firstname + ' ' + lastname} society={society} description={description}/>
                 </div>
             </div>

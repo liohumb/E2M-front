@@ -118,8 +118,8 @@ export default function Modification() {
 
     return (
         <section className="modification section">
-            <div className="modification__container">
-                <div className="modification__container-left">
+            <div className="modification__container section__container">
+                <div className="modification__container-left section__container-left">
                     <Pictures/>
                     <form action="" className="form modification__form" onSubmit={handleUpdate}>
                         <div className="form__contents">
@@ -188,7 +188,7 @@ export default function Modification() {
                         {error && <p className="form__error">{error}</p>}
                     </form>
                 </div>
-                <div className="modification__container-right">
+                <div className="modification__container-right section__container-right">
                     <Side name={firstname + ' ' + lastname} society={society} description={description}/>
                 </div>
             </div>

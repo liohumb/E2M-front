@@ -12,6 +12,8 @@ import Social from './pages/social/Social'
 import Password from './pages/password/Password'
 
 import './assets/styles/style.scss'
+import Products from './pages/products/Products'
+import Create from './pages/create/Create'
 
 export default function App() {
     const { user } = useContext( Context )
@@ -39,6 +41,8 @@ export default function App() {
                 <Route path="/profil/:id/modifier-mot-de-passe" element={user ? <Password/> : <Navigate to="/connexion"/>}/>
                 <Route path="/profil/:id/reseaux-social" element={user ? <Social/> : <Navigate to="/connexion"/>}/>
                 <Route path="/profil/:id/modifier" element={user ? <Modification/> : <Navigate to="/connexion"/>}/>
+                <Route path="/profil/:id/produits/ajouter" element={user ? <Create/> : <Navigate to="/connexion"/>}/>
+                <Route path="/profil/:id/produits" element={user ? <Products/> : <Navigate to="/connexion"/>}/>
                 <Route path="/profil/:id" element={user ? <Profils/> : <Navigate to="/connexion"/>}/>
                 <Route path="/inscription/:token" element={<Register/>}/>
                 <Route path="/connexion" element={user ? <Navigate to="/"/> : <Login/>}/>

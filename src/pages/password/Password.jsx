@@ -39,8 +39,8 @@ export default function Password() {
 
     return (
         <section className="password section">
-            <div className="password__container">
-                <div className="password__container-left">
+            <div className="password__container section__container">
+                <div className="password__container-left section__container-left">
                     <Pictures/>
                     <form action="" className="form password__form" onSubmit={handleSubmit}>
                         <div className="form__content">
@@ -63,7 +63,7 @@ export default function Password() {
                         {error && <p className="form__error">{error}</p>}
                     </form>
                 </div>
-                <div className="password__container-right">
+                <div className="password__container-right section__container-right">
                     <Side/>
                 </div>
             </div>
