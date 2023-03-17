@@ -58,8 +58,10 @@ export default function Add() {
         <div className="add block">
             <form action="" className="add__form" onSubmit={handleSubmit}>
                 <div className="add__form-text">
-                    <img src={`http://localhost:8080/images/${user.picture}`}
-                         alt={user.firstname + ' ' + user.lastname}/>
+                    <div className="add__form-picture">
+                        <img src={`http://localhost:8080/images/${user.picture}`}
+                             alt={user.firstname + ' ' + user.lastname}/>
+                    </div>
                     <textarea
                         name="content"
                         id="content"

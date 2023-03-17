@@ -134,10 +134,11 @@ ul {
   }
 
   &__contents {
-    width: 100%;
+    width: 66%;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 2rem;
 
     @media (max-width: 768px) {
       flex-direction: column;
@@ -146,15 +147,16 @@ ul {
   }
 
   &__content {
-    width: 100%;
+    width: 66%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
     input,
-    textarea {
-      width: 66%;
+    textarea,
+    select {
+      width: 100%;
       height: 5rem;
       font-size: 1.75rem;
       color: v.$light-color;

@@ -11,6 +11,12 @@
       display: flex;
     }
 
+    &-alt {
+      position: relative;
+      width: 100%;
+      display: flex;
+    }
+
     &-left {
       position: fixed;
       top: 10rem;
@@ -28,6 +34,10 @@
       display: flex;
       flex-direction: column;
       gap: 4rem;
+
+      &--alt {
+        width: 72.5%;
+      }
 
       @media (max-width: 1024px) {
         width: 66%;

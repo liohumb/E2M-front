@@ -18,13 +18,6 @@
       justify-content: space-between;
       gap: 2rem;
 
-      & img {
-        width: 7.5rem;
-        height: 7.5rem;
-        object-fit: cover;
-        border-radius: 50%;
-      }
-
       & textarea {
         width: 100%;
         height: 5.5rem;
@@ -34,6 +27,19 @@
         background: v.$transparent-color-light;
         resize: none;
         padding: 1.75rem 2.5rem;
+      }
+    }
+
+    &-picture {
+      width: 7.5rem;
+      height: 6.75rem;
+      border-radius: 50%;
+      overflow: hidden;
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
 

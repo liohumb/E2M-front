@@ -29,12 +29,15 @@ export default function Home() {
 
     return (
         <section className="home section">
-            <div className="home__container">
+            <div className={user && user.role === 'ARTISAN' ? 'home__container' : 'home__container-alt'}>
                 <div className="home__container-left">
-                    <Artisan/>
+                    {user && user.role === 'ARTISAN' &&
+                        <Artisan/>
+                    }
                 </div>
-                <div className="home__container-middle">
-                    {user && <Add/>}
+                {/* eslint-disable-next-line no-mixed-operators */}
+                <div className={`home__container-middle ${user === null || user.role !== 'ARTISAN' ? 'home__container-middle--alt' : ''}`}>
+                    {user && user.role === 'ARTISAN'  && <Add/>}
                     {posts.reverse().map( ( post ) => (
                         <Post key={post._id} post={post}/>
                     ) )}
