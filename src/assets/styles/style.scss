@@ -211,9 +211,13 @@ ul {
       resize: none;
     }
 
-    div {
-      width: 66%;
-      border-bottom: .1rem solid v.$first-color-light;
+    &-image {
+      width: 55%;
+      height: 5.5rem;
+      display: grid;
+      place-items: center;
+      background: v.$first-color-dark;
+      border-radius: .75rem;
       cursor: copy;
     }
 

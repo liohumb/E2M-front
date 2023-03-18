@@ -2,4 +2,10 @@
 
 .create {
 
+  &__form {
+    background: v.$first-color;
+    border-radius: 2rem;
+    padding: 10% 2rem;
+  }
+
 }

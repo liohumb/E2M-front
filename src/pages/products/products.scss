@@ -6,4 +6,17 @@
     border-radius: 2rem;
     padding: 10% 2rem;
   }
+
+  &__cards {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-items: center;
+    gap: 4rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
 }
