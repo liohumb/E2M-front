@@ -1,0 +1,188 @@
+@use "src/assets/styles/Variables" as v;
+
+.content {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+
+  &__container {
+    width: 100%;
+    padding: 0;
+
+    &-top,
+    &-bottom {
+      width: 100%;
+      display: flex;
+
+      @media (max-width: 1024px) {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
+
+  &__picture {
+    min-width: 50%;
+    height: 70vh;
+    object-fit: cover;
+
+    @media (max-width: 1024px) {
+      height: 50vh;
+    }
+  }
+
+  &__infos {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 4rem;
+
+    &-artisan {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: v.$secondary-font;
+      font-size: 2rem;
+
+      & span {
+        font-family: v.$primary-font;
+        font-size: 1.5rem;
+      }
+    }
+
+    &-title {
+      font-family: v.$title-font;
+      font-size: 5.5rem;
+
+      &--input {
+        width: 100%;
+        font-family: v.$title-font;
+        font-size: 5.5rem;
+        color: v.$first-color-light;
+        background: none;
+        border: none;
+        border-bottom: .1rem solid v.$dark-color;
+      }
+    }
+
+    &-description {
+      font-size: 1.75rem;
+
+      &--textarea {
+        width: 100%;
+        font-size: 1.75rem;
+        color: v.$first-color-light;
+        background: none;
+        border: none;
+        border-bottom: .1rem solid v.$dark-color;
+      }
+    }
+
+    &-price {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: v.$title-font;
+      font-size: 2.75rem;
+
+      & span {
+        font-family: v.$primary-font;
+        font-size: 1.5rem;
+      }
+
+      & input {
+        color: v.$first-color-light;
+        background: none;
+        border: none;
+        border-bottom: .1rem solid v.$dark-color;
+      }
+    }
+  }
+
+  &__interactions {
+    width: 50%;
+
+    &-interaction {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15%;
+      padding: 4rem 0;
+
+      & i {
+        font-size: 3.75rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__comments {
+    max-width: 70rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 4rem;
+
+    & li {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    &-comment {
+      width: 100%;
+      font-size: 1.75rem;
+    }
+
+    &-author {
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      font-size: 1.5rem;
+      gap: 1rem;
+
+      & i {
+        font-size: 2.75rem;
+      }
+    }
+
+    &-empty {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      font-family: v.$title-font;
+      font-size: 1.5rem;
+
+      & span {
+        font-size: 2.75rem;
+      }
+    }
+
+    &-form {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & input {
+        width: 75%;
+        height: 4rem;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        border-bottom: .1rem solid v.$dark-color;
+        padding: 2rem;
+      }
+
+      & button {
+        font-size: 3.25rem;
+      }
+    }
+  }
+}

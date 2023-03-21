@@ -9,7 +9,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: v.$transparent-color;
+  background: v.$background;
+  background: v.$linear-background;
   z-index: 3;
   padding: 0 5%;
 
@@ -19,7 +20,7 @@
   }
 
   &__logo {
-    height: 90%;
+    height: 75%;
 
     @media (max-width: 768px) {
       display: none;
@@ -52,7 +53,7 @@
         color: v.$first-color-dark;
         border: none;
         border-radius: 1rem;
-        background: v.$transparent-color-light;
+        background: v.$first-color-light;
         padding: 1rem 2rem;
       }
 
@@ -67,7 +68,7 @@
         transition: all .7s ease;
 
         &hover {
-          color: v.$first-color-dark;
+          color: v.$light-color;
           transform: scale(1.1);
         }
       }
@@ -77,11 +78,11 @@
       display: grid;
       place-items: center;
       font-size: 2.5rem;
-      color: v.$first-color-dark;
+      color: v.$first-color-light;
       transition: all .7s ease;
 
       &:hover {
-        color: v.$dark-color;
+        color: v.$light-color;
       }
 
       & img {
@@ -112,7 +113,7 @@
       display: grid;
       place-items: center;
       font-size: 2.5rem;
-      color: v.$first-color-dark;
+      color: v.$light-color;
 
       & img {
         width: 2.75rem;

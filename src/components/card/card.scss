@@ -1,0 +1,73 @@
+@use "src/assets/styles/Variables" as v;
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 40rem;
+  background: v.$background;
+  background: v.$radial-background;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    height: 33rem;
+  }
+
+  &__picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all .7s ease;
+  }
+  
+  &:hover &__picture {
+    transform: scale(1.1);
+  }
+
+  &__container,
+  &__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    background: rgba(0, 0, 0, .5);
+    opacity: 0;
+    padding: 2rem;
+    transition: all .7s ease;
+
+    & p {
+      font-size: 2rem;
+      color: v.$light-color;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    &-profil {
+      position: absolute;
+      right: 2rem;
+      bottom: 2rem;
+      width: 100%;
+      z-index: 1;
+    }
+  }
+  
+  &:hover &__container {
+    opacity: 1;
+  }
+
+  &__content {
+    background: rgba(0, 0, 0, .25);
+    opacity: 1;
+    
+    &-profil {
+      opacity: 0;
+      transition: all .7s ease;
+    }
+    
+    &:hover &-profil {
+      opacity: 1;
+    }
+  }
+}

@@ -2,13 +2,16 @@ import { useEffect, useContext } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { Context } from './context/Context'
 
-import Header from './navigations/header/Header'
 import Login from './authentification/login/Login'
 import Register from './authentification/register/Register'
 import Home from './pages/home/Home'
-import Profils from './pages/profils/Profils'
+import Artisans from './pages/artisans/Artisans'
+import Posts from './pages/posts/Posts'
+import Products from './pages/products/Products'
+import Artisan from './pages/artisan/Artisan'
+import Single from './pages/single/Single'
+import Create from './pages/create/Create'
 import Modification from './pages/modification/Modification'
-import Social from './pages/social/Social'
 import Password from './pages/password/Password'
 
 import './assets/styles/style.scss'
@@ -34,14 +37,19 @@ export default function App() {
 
     return (
         <>
-            <Header/>
             <Routes>
-                <Route path="/profil/:id/modifier-mot-de-passe" element={user ? <Password/> : <Navigate to="/connexion"/>}/>
-                <Route path="/profil/:id/reseaux-social" element={user ? <Social/> : <Navigate to="/connexion"/>}/>
-                <Route path="/profil/:id/modifier" element={user ? <Modification/> : <Navigate to="/connexion"/>}/>
-                <Route path="/profil/:id" element={user ? <Profils/> : <Navigate to="/connexion"/>}/>
                 <Route path="/inscription/:token" element={<Register/>}/>
                 <Route path="/connexion" element={user ? <Navigate to="/"/> : <Login/>}/>
+                <Route path="/artisan/:id/modifier-mdp" element={<Password/>}/>
+                <Route path="/artisan/:id/modifier-informations" element={<Modification/>}/>
+                <Route path="/produit/:id" element={<Single product/>}/>
+                <Route path="/post/:id" element={<Single post/>}/>
+                <Route path="/artisan/:id/ajouter-produit" element={<Create product/>}/>
+                <Route path="/artisan/:id/nouveau-post" element={<Create post/>}/>
+                <Route path="/artisan/:id" element={<Artisan/>}/>
+                <Route path="/produits" element={<Products/>}/>
+                <Route path="/posts" element={<Posts/>}/>
+                <Route path="/artisans" element={<Artisans/>}/>
                 <Route index path="/" element={<Home/>}/>
             </Routes>
         </>

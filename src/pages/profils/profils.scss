@@ -1,30 +1,6 @@
 @use "src/assets/styles/Variables" as v;
 
 .profils {
-  &__container {
-    position: relative;
-    width: 100%;
-
-    &-left {
-      width: 70%;
-
-      @media (max-width: 1024px) {
-        width: 100%;
-      }
-    }
-
-    &-right {
-      position: fixed;
-      top: 55%;
-      right: 2rem;
-      transform: translateY(-50%);
-      width: 25%;
-
-      @media (max-width: 1024px) {
-        display: none;
-      }
-    }
-  }
 
   &__details {
     width: 100%;
@@ -155,17 +131,34 @@
     }
   }
 
-  &__post {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 8rem;
-    padding: 6rem;
-    transition: all .7s ease;
+  &__contents {
+    &-category {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 25%;
 
-    @media (max-width: 768px) {
-      margin: -6rem 0 0 0;
-      padding: 0 2.5%;
+      & span {
+        font-size: 2rem;
+        cursor: pointer;
+      }
+    }
+
+    &-content {
+      width: 100%;
+      display: flex;
+      gap: 4rem;
+      padding: 4rem;
+
+      &--left,
+      &--right {
+        width: 40rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+      }
     }
 
     &-active {

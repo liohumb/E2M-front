@@ -3,37 +3,24 @@
 .profil {
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 
-  &__artisan {
-    width: 100%;
+  &__container {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
+  }
 
-    & img {
-      width: 5.5rem;
-      height: 5.5rem;
-      border-radius: 50%;
-      object-fit: cover;
-    }
+  &__name {
+    font-family: v.$title-font;
+    font-size: 1.75rem;
+    color: v.$light-color;
+  }
 
-    &-infos {
-      & h6 {
-        font-size: 1.5rem;
-        color: v.$dark-color;
-      }
-
-      & span {
-        font-size: 1.25rem;
-        color: v.$first-color-dark
-      }
-    }
-
-    &-add {
-      font-size: 2.5rem;
-      color: v.$dark-color;
-    }
+  &__picture {
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 50%;
+    object-fit: cover;
   }
 }

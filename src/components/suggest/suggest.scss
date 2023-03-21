@@ -1,7 +1,8 @@
 @use "src/assets/styles/Variables" as v;
 
 .suggest {
-  background: v.$first-color-light;
+  background: v.$light-background;
+  background: v.$light-radial-background;
 
   &__container {
     width: 100%;

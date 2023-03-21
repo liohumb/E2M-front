@@ -1,0 +1,89 @@
+@use "src/assets/styles/Variables" as v;
+
+.artisan {
+
+  &__infos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    padding: 10% 4rem;
+
+    &-picture,
+    &-drop {
+      width: 30rem;
+      height: 30rem;
+      display: none;
+      object-fit: cover;
+
+      @media (max-width: 768px) {
+        display: block;
+      }
+
+      @media (max-width: 425px) {
+        width: 25rem;
+        height: 25rem;
+      }
+    }
+
+    &-drop {
+      display: none;
+      place-items: center;
+      font-family: v.$title-font;
+      font-size: 1.75rem;
+      border: .1rem solid v.$dark-color;
+
+      @media (max-width: 768px) {
+        display: grid;
+      }
+
+      & i {
+        display: none;
+
+        @media (max-width: 1024px) {
+          display: block;
+          font-size: 4rem;
+        }
+      }
+    }
+
+    &-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: v.$title-font;
+      font-size: 4rem;
+
+      & span {
+        font-family: v.$primary-font;
+        font-size: 2rem;
+      }
+
+      @media (max-width: 425px) {
+        font-size: 2.75rem;
+
+        & span {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    &-description {
+      font-family: v.$secondary-font;
+      font-size: 2rem;
+      text-align: center;
+      padding: 2.5rem 10%;
+
+      @media (max-width: 1024px) {
+        padding: 2.5rem 5%;
+      }
+
+      @media (max-width: 425px) {
+        font-size: 1.75rem;
+        padding: 2rem 0;
+      }
+    }
+  }
+}

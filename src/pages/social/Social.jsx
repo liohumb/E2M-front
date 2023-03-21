@@ -136,8 +136,8 @@ export default function Social() {
 
     return (
         <section className="social section">
-            <div className="social__container">
-                <div className="social__container-left">
+            <div className="social__container section__container">
+                <div className="social__container-left section__container-left">
                     <Pictures/>
                     {addedSocials.map( ( social ) => (
                         <form
@@ -209,7 +209,7 @@ export default function Social() {
                         </div>
                     </form>
                 </div>
-                <div className="social__container-right">
+                <div className="social__container-right section__container-right">
                     <Side/>
                 </div>
             </div>

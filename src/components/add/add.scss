@@ -1,7 +1,8 @@
 @use "src/assets/styles/Variables" as v;
 
 .add {
-  background: v.$transparent-color;
+  background: v.$background;
+  background: v.$linear-background;
 
   &__form {
     width: 100%;
