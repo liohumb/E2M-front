@@ -1,107 +1,195 @@
 @use "src/assets/styles/Variables" as v;
 
 .side {
-  background: v.$first-color-light;
+  position: fixed;
+  width: 25%;
+  height: 100vh;
+  display: grid;
+  place-items: center;
 
   &__container {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 2.75rem;
-    padding: 4rem 0;
-
-    & h4 {
-      font-size: 2.75rem;
-      text-align: center;
-      line-height: 0;
-    }
-    
-    & span {
-      font-size: 1.75rem;
-      text-align: center;
-      line-height: 0;
-    }
-  }
-
-  &__button {
-    position: relative;
-    width: 100%;
-    display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20%;
+    padding: 1rem;
 
-    & i {
-      font-size: 4rem;
-      color: v.$first-color-dark;
-    }
-
-    &:after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      bottom: -100%;
-      transform: translateX(-50%);
-      width: 75%;
-      height: .1rem;
-      background: v.$first-color;
+    &-header {
+      width: 100%;
     }
   }
 
-  &__description,
-  &__add {
-    position: relative;
+  &__picture,
+  &__drop {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-    padding: 3rem 0;
-
-    & h6 {
-      font-size: 2rem;
-    }
+    height: 22vw;
+    object-fit: cover;
+  }
+  
+  &__drop {
+    display: grid;
+    place-items: center;
+    font-family: v.$title-font;
+    font-size: 1.75rem;
+    border: .1rem solid v.$dark-color;
 
     & p {
-      font-size: 1.5rem;
+      @media (max-width: 1024px) {
+        display: none;
+      }
     }
 
-    &:after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%);
-      width: 75%;
-      height: .1rem;
-      background: v.$first-color;
-    }
-  }
+    & i {
+      display: none;
 
-  &__add {
-    &-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      font-size: 1.75rem;
-
-      & i {
-        font-size: 2.5rem;
+      @media (max-width: 1024px) {
+        display: block;
+        font-size: 4rem;
       }
     }
   }
 
-  &__edit {
+  &__title {
+    font-family: v.$title-font;
+    font-size: 5.25rem;
+    color: v.$dark-color;
+    line-height: 6rem;
+    padding: 1rem;
+
+    @media (max-width: 1024px) {
+      font-size: 4.25rem;
+      padding: 0;
+    }
+  }
+
+  &__subtitle {
+    font-family: v.$secondary-font;
+    font-size: 2.75rem;
+    color: v.$first-color;
+    padding: 1rem 2rem;
+
+    @media (max-width: 1024px) {
+      font-size: 2rem;
+      padding: 0;
+    }
+  }
+
+  &__menu {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
+    padding: 2rem;
 
-    &-link {
-      font-size: 1.5rem;
-      cursor: pointer;
+    &-name {
+      font-family: v.$title-font;
+      font-size: 4rem;
+    }
+
+    &-society {
+      width: 100%;
+      font-family: v.$secondary-font;
+      font-size: 2.5rem;
+      color: v.$first-color-light;
+      text-align: end;
+      margin: 0 0 2rem 0;
+    }
+
+    &-form {
+      position: relative;
+      width: 100%;
+      padding: 2.5rem 0;
+
+      & input {
+        width: 80%;
+        height: 3.75rem;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        border-top: .2rem solid v.$first-color;
+        border-bottom: .2rem solid v.$first-color;
+        padding: 2rem 1rem;
+
+        @media (max-width: 1024px) {
+          width: 100%;
+        }
+      }
+      
+      & button {
+        position: absolute;
+        top: 50%;
+        right: 20%;
+        transform: translate(-50%, -50%);
+        display: grid;
+        place-items: center;
+        font-size: 2rem;
+
+        @media (max-width: 1200px) {
+          right: 12.5%;
+        }
+
+        @media (max-width: 1024px) {
+          right: -7.5%;
+        }
+      }
+    }
+
+    &-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      &--link {
+        position: relative;
+        font-size: 2.25rem;
+        color: v.$first-color;
+        cursor: pointer;
+
+        &---active {
+          color: v.$first-color-light;
+          cursor: none;
+
+          &:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 110%;
+            height: .25rem;
+            background: v.$dark-color;
+          }
+        }
+
+        & i {
+          font-size: 2.5rem;
+          padding: 0 .5rem;
+        }
+      }
+    }
+
+    &-connection {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      @media (max-width: 1024px) {
+        flex-direction: column;
+
+        & li:nth-child(2) {
+          display: none;
+        }
+      }
+
+      &--link {
+        font-size: 1.5rem;
+        color: v.$first-color;
+        cursor: pointer;
+
+        @media (max-width: 1024px) {
+        }
+      }
     }
   }
 }

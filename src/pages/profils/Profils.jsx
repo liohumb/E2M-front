@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from 'react'
-import { Context } from '../../context/Context'
+import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
+import { Context } from '../../context/Context'
 
 import Side from '../../navigations/side/Side'
 import Pictures from '../../components/pictures/Pictures'
 import Post from '../../components/post/Post'
+import Card from '../../components/card/Card'
 
 import './profils.scss'
-import { Link, useParams } from 'react-router-dom'
 
 export default function Profils() {
     const { user } = useContext( Context )
@@ -22,15 +23,13 @@ export default function Profils() {
     const [description, setDescription] = useState( '' )
     const [socials, setSocials] = useState( [] )
     const [posts, setPosts] = useState( [] )
+    const [products, setProducts] = useState([])
     const [showIcons, setShowIcons] = useState( false )
+    const [btnPost, setBtnPost] = useState(true)
+    const [btnProduct, setBtnProduct] = useState(false)
 
-    const handleIcons = () => {
-        if (showIcons) {
-            setShowIcons( false )
-        } else {
-            setShowIcons( true )
-        }
-    }
+    // const {firstHalf: firstPosts, secondHalf: secondPosts} = split(posts)
+    // const {firstHalf: firstProducts, secondHalf: secondProducts} = split(products)
 
     useEffect( () => {
         const getInfo = async () => {
@@ -63,17 +62,49 @@ export default function Profils() {
     }, [id] )
 
     useEffect( () => {
-        const fetchPosts = async () => {
+        const getPosts = async () => {
             try {
                 const response = await axios.get( `http://localhost:8080/post` )
-                setPosts( response.data )
+                const postUser = response.data.filter(post => post.author === id)
+                setPosts( postUser )
             } catch (e) {
                 console.error( e )
             }
         }
 
-        fetchPosts()
-    }, [] )
+        getPosts()
+    }, [id] )
+
+    useEffect( () => {
+        const getProducts = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/product`)
+                const productUser = response.data.filter(product => product.artisan === id)
+                setProducts(productUser)
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        getProducts()
+    }, [id])
+
+    const handleIcons = () => {
+        if (showIcons) {
+            setShowIcons( false )
+        } else {
+            setShowIcons( true )
+        }
+    }
+
+    const handlePosts = () => {
+        setBtnPost(true)
+        setBtnProduct(false)
+    }
+
+    const handleProducts = () => {
+        setBtnProduct(true)
+        setBtnPost(false)
+    }
 
     return (
         <section className="profils section">
@@ -128,10 +159,39 @@ export default function Profils() {
                             </div>
                         </div>
                     </div>
-                    <div className={`profils__post ${showIcons && 'profils__post-active'}`}>
-                        {posts.reverse().map( ( post ) => (
-                            <Post key={post._id} post={post}/>
-                        ) )}
+                    <div className={`profils__contents ${showIcons && 'profils__contents-active'}`}>
+                        <div className="profils__contents-category">
+                            <span onClick={handlePosts}>Les posts</span>
+                            <span onClick={handleProducts}>Les produits</span>
+                        </div>
+                        {/*{btnPost &&*/}
+                        {/*    <div className="profils__contents-content">*/}
+                        {/*        <div className="profils__contents-content--left">*/}
+                        {/*            {firstPosts.reverse().map((post) => (*/}
+                        {/*                <Post key={post._id} post={post} profil/>*/}
+                        {/*            ))}*/}
+                        {/*        </div>*/}
+                        {/*        <div className="profils__contents-content--right">*/}
+                        {/*            {secondPosts.reverse().map((post) => (*/}
+                        {/*                <Post key={post._id} post={post} profil/>*/}
+                        {/*            ))}*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*}*/}
+                        {/*{btnProduct &&*/}
+                        {/*    <div className="profils__contents-content">*/}
+                        {/*        <div className="profils__contents-content--left">*/}
+                        {/*            {firstProducts.reverse().map((product) => (*/}
+                        {/*                <Card key={product._id} product={product} />*/}
+                        {/*            ))}*/}
+                        {/*        </div>*/}
+                        {/*        <div className="profils__contents-content--right">*/}
+                        {/*            {secondProducts.reverse().map((product) => (*/}
+                        {/*                <Card key={product._id} product={product} />*/}
+                        {/*            ))}*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*}*/}
                     </div>
                 </div>
                 <div className="profils__container-right section__container-right">

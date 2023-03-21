@@ -1,6 +1,7 @@
-import { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Context } from '../../context/Context'
+import { getData, getPreview } from '../../utils'
 import Dropzone from 'react-dropzone'
 import axios from 'axios'
 
@@ -8,14 +9,20 @@ import Side from '../../navigations/side/Side'
 
 import './create.scss'
 
-export default function Create() {
+export default function Create({post, product}) {
     const { user } = useContext( Context )
+    const id = useParams().id
     const navigate = useNavigate()
 
+    const [artisan, setArtisan] = useState( [] )
     const [title, setTitle] = useState( '' )
     const [description, setDescription] = useState( '' )
     const [price, setPrice] = useState('')
     const [file, setFile] = useState( null )
+
+    useEffect( () => {
+        getData( 'user', id, setArtisan )
+    }, [id] )
 
     const onDrop = ( acceptedFiles ) => {
         if (acceptedFiles.length > 0) {
@@ -29,6 +36,10 @@ export default function Create() {
         const newProduct = {
             title, picture: file, description, price, artisan: user._id
         }
+        
+        const newPost = {
+            picture: file, description, artisan: user._id
+        }
 
         if (file) {
             const data = new FormData()
@@ -37,20 +48,26 @@ export default function Create() {
             data.append( 'name', fileName )
             data.append( 'file', file )
 
-            newProduct.picture = fileName
+            post ? newPost.picture = fileName :newProduct.picture = fileName
 
             try {
                 await axios.post( 'http://localhost:8080/upload', data )
+            } catch (e) {}
+        }
+        if (post) {
+            try {
+                await axios.post( 'http://localhost:8080/post', newPost )
+                navigate(`/artisan/${user._id}`)
             } catch (e) {
                 console.log( e )
             }
-        }
-
-        try {
-            await axios.post('http://localhost:8080/product', newProduct)
-            navigate(`/profil/${user._id}/produits`)
-        } catch (e) {
-            console.log(e)
+        } else if (product) {
+            try {
+                await axios.post('http://localhost:8080/product', newProduct)
+                navigate(`/artisan/${user._id}`)
+            } catch (e) {
+                console.log(e)
+            }
         }
     }
 
@@ -58,6 +75,9 @@ export default function Create() {
         <section className="create section">
             <div className="create__container section__container">
                 <div className="create__container-left section__container-left">
+                    <Side artisan={artisan}/>
+                </div>
+                <div className="create__container-right section__container-right">
                     <form action="" className="form create__form" onSubmit={handleSubmit}>
                         <div className="form__content">
                             <Dropzone onDrop={onDrop}>
@@ -65,28 +85,30 @@ export default function Create() {
                                     <div {...getRootProps()} className="form__content-image">
                                         <input {...getInputProps()}/>
                                         {file ? (
-                                            <p>{file.name}</p>
+                                            <p>{getPreview(25, file.name)}</p>
                                         ) : (
-                                            <p>Ajouter une image ici</p>
+                                            <p>Ajouter une image ici <span>👈</span></p>
                                         )}
                                     </div>
                                 )}
                             </Dropzone>
                         </div>
-                        <div className="form__contents">
-                            <div className="form__content">
-                                <label htmlFor="title"></label>
-                                <input type="text" name="title" id="title"
-                                       placeholder="Le titre de votre produit"
-                                       value={title} onChange={( e ) => setTitle(e.target.value)}/>
+                        {product &&
+                            <div className="form__contents">
+                                <div className="form__content">
+                                    <label htmlFor="title"></label>
+                                    <input type="text" name="title" id="title"
+                                           placeholder="Le titre de votre produit"
+                                           value={title} onChange={( e ) => setTitle(e.target.value)}/>
+                                </div>
+                                <div className="form__content">
+                                    <label htmlFor="price"></label>
+                                    <input type="number" name="price" id="price"
+                                           placeholder="À partir de… €"
+                                           value={price} onChange={( e ) => setPrice(e.target.value)}/>
+                                </div>
                             </div>
-                            <div className="form__content">
-                                <label htmlFor="price"></label>
-                                <input type="number" name="price" id="price"
-                                       placeholder="À partir de… €"
-                                       value={price} onChange={( e ) => setPrice(e.target.value)}/>
-                            </div>
-                        </div>
+                        }
                         <div className="form__content">
                             <label htmlFor="description"></label>
                             <textarea name="description" id="description"
@@ -97,9 +119,6 @@ export default function Create() {
                             <button type="submit">Ajouter</button>
                         </div>
                     </form>
-                </div>
-                <div className="create__container-right section__container-right">
-                    <Side name={user.firstname + ' ' + user.lastname} society={user.society}/>
                 </div>
             </div>
         </section>

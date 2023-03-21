@@ -1,50 +1,84 @@
-import { useState, useEffect, useContext } from 'react'
-import { Context } from '../../context/Context'
-import axios from 'axios'
+import { useState, useEffect, useMemo } from 'react'
+import { getAll } from '../../utils'
 
-import Artisan from '../../components/artisan/Artisan'
-import Add from '../../components/add/Add'
-import Post from '../../components/post/Post'
-import Sponsor from '../../components/sponsor/Sponsor'
-import Suggest from '../../components/suggest/Suggest'
+import Side from '../../navigations/side/Side'
+import Card from '../../components/card/Card'
 
 import './home.scss'
 
 export default function Home() {
-    const { user } = useContext( Context )
     const [posts, setPosts] = useState( [] )
+    const [products, setProducts] = useState( [] )
+    const [showHome, setShowHome] = useState( true )
+    const [search, setSearch] = useState( '' )
+    const [searchResults, setSearchResults] = useState( [] )
 
     useEffect( () => {
-        const fetchPosts = async () => {
-            try {
-                const response = await axios.get( `http://localhost:8080/post` )
-                setPosts( response.data )
-            } catch (e) {
-                console.error( e )
-            }
-        }
-
-        fetchPosts()
+        getAll( 'post', setPosts )
+        getAll( 'product', setProducts )
     }, [] )
+
+    const datas = useMemo( () => {
+        const allData = posts.concat( products )
+        allData.sort( ( a, b ) => a.created_at - b.created_at )
+        return allData
+    }, [posts, products] )
+
+    const handleHome = () => {
+        setShowHome( true )
+    }
 
     return (
         <section className="home section">
-            <div className={user && user.role === 'ARTISAN' ? 'home__container' : 'home__container-alt'}>
-                <div className="home__container-left">
-                    {user && user.role === 'ARTISAN' &&
-                        <Artisan/>
+            <div className="home__container section__container">
+                <div className="home__container-left section__container-left">
+                    <Side home={showHome} clickHome={handleHome} setSearchResults={setSearchResults} search={search}
+                          setSearch={setSearch}/>
+                </div>
+                <div className="home__container-right section__container-right">
+                    {searchResults.length === 0 && search.length > 0 ?
+                        <div className="home__result"></div>
+                        :
+                        search.length === 0 ?
+                            <ul className="home__contents section__contents">
+                                {datas.reverse().map( ( data ) => (
+                                    <Card key={data._id} data={data}/>
+                                ) )}
+                            </ul>
+                            :
+                            <div className="home__result section__result">
+                                {searchResults.users.length > 0 &&
+                                    <>
+                                        <h1 className="home__result-title section__result-title">Les Artisans</h1>
+                                        <ul className="home__contents section__contents">
+                                            {searchResults.users.map( ( data ) => (
+                                                <Card key={data._id} data={data}/>
+                                            ) )}
+                                        </ul>
+                                    </>
+                                }
+                                {searchResults.posts.length > 0 &&
+                                    <>
+                                        <h1 className="home__result-title section__result-title">Les Posts</h1>
+                                        <ul className="home__contents section__contents">
+                                            {searchResults.posts.map( ( data ) => (
+                                                <Card key={data._id} data={data}/>
+                                            ) )}
+                                        </ul>
+                                    </>
+                                }
+                                {searchResults.products.length > 0 &&
+                                    <>
+                                        <h1 className="home__result-title section__result-title">Les Produits</h1>
+                                        <ul className="home__contents section__contents">
+                                            {searchResults.products.map( ( data ) => (
+                                                <Card key={data._id} data={data}/>
+                                            ) )}
+                                        </ul>
+                                    </>
+                                }
+                            </div>
                     }
-                </div>
-                {/* eslint-disable-next-line no-mixed-operators */}
-                <div className={`home__container-middle ${user === null || user.role !== 'ARTISAN' ? 'home__container-middle--alt' : ''}`}>
-                    {user && user.role === 'ARTISAN'  && <Add/>}
-                    {posts.reverse().map( ( post ) => (
-                        <Post key={post._id} post={post}/>
-                    ) )}
-                </div>
-                <div className="home__container-right">
-                    <Sponsor/>
-                    <Suggest/>
                 </div>
             </div>
         </section>

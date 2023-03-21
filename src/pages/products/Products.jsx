@@ -1,42 +1,78 @@
-import { useContext, useState, useEffect } from 'react'
-import { Context } from '../../context/Context'
-import axios from 'axios'
+import { useState, useEffect } from 'react'
+import { getAll, sortAll } from '../../utils'
 
 import Side from '../../navigations/side/Side'
 import Card from '../../components/card/Card'
 
 import './products.scss'
-import { useParams } from 'react-router-dom'
 
-export default function Products() {
-    const {user} = useContext(Context)
-    const id = useParams().id
+export default function Posts() {
     const [products, setProducts] = useState([])
+    const [showProduct, setShowProduct] = useState(true)
+    const [search, setSearch] = useState('')
+    const [searchResults, setSearchResults] = useState([]);
 
     useEffect( () => {
-        const getProducts = async () => {
-            const response = await axios.get('http://localhost:8080/product', {
-                params : {
-                    artisan: id
-                }
-            })
-            setProducts(response.data)
-        }
-        getProducts()
-    }, [id])
+        getAll('product', setProducts)
+    }, [])
+
+    sortAll(products)
+
+    const handleProduct = () => {
+        setShowProduct(true)
+    }
 
     return (
         <section className="products section">
             <div className="products__container section__container">
-                <div className="products__container-left section__container-left">
-                    <div className="products__cards">
-                        {products.map( ( product ) =>
-                            <Card key={product._id} product={product}/>
-                        )}
-                    </div>
+                <div className="products__container-right section__container-left">
+                    <Side product={showProduct} clickProducts={handleProduct} setSearchResults={setSearchResults} search={search}
+                          setSearch={setSearch}/>
                 </div>
                 <div className="products__container-right section__container-right">
-                    <Side name={user.firstname + ' ' + user.lastname} society={user.society} products/>
+                    {searchResults.length === 0 && search.length > 0 ?
+                        <div className="products__result"></div>
+                        :
+                        search.length === 0 ?
+                            <ul className="products__contents section__contents">
+                                {products.map((product) => (
+                                    <Card data={product}/>
+                                ))}
+                            </ul>
+                            :
+                            <div className="products__result section__result">
+                                {searchResults.users.length > 0 &&
+                                    <>
+                                        <h1 className="products__result-title section__result-title">Les Artisans</h1>
+                                        <ul className="products__contents section__contents">
+                                            {searchResults.users.map( ( data ) => (
+                                                <Card key={data._id} data={data}/>
+                                            ) )}
+                                        </ul>
+                                    </>
+                                }
+                                {searchResults.posts.length > 0 &&
+                                    <>
+                                        <h1 className="products__result-title section__result-title">Les Posts</h1>
+                                        <ul className="products__contents section__contents">
+                                            {searchResults.posts.map( ( data ) => (
+                                                <Card key={data._id} data={data}/>
+                                            ) )}
+                                        </ul>
+                                    </>
+                                }
+                                {searchResults.products.length > 0 &&
+                                    <>
+                                        <h1 className="products__result-title section__result-title">Les Produits</h1>
+                                        <ul className="products__contents section__contents">
+                                            {searchResults.products.map( ( data ) => (
+                                                <Card key={data._id} data={data}/>
+                                            ) )}
+                                        </ul>
+                                    </>
+                                }
+                            </div>
+                    }
                 </div>
             </div>
         </section>

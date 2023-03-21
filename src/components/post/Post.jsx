@@ -1,71 +1,38 @@
-import { useState } from 'react';
+import Profil from '../profil/Profil'
 
-import Profil from '../profil/Profil';
-import Comments from '../comments/Comments';
-import Modal from '../modal/Modal';
+import './post.scss'
 
-import './post.scss';
-
-const comments = [
-    {
-        id: 1,
-        text: 'Lorem ipsum dolor sit amet',
-        author: 'John Doe'
-    },
-    {
-        id: 2,
-        text: 'Lorem dolor',
-        author: 'Jane Doe'
-    }
-];
-
-export default function Post({ post }) {
-    const [addComment, setAddComment] = useState(false);
-    const [openModal, setOpenModal] = useState(false);
-
-    const handleComment = () => {
-        setAddComment(true);
-    };
-
-    const handleModal = () => {
-        setOpenModal(true);
-    };
-
-    let picture
-
-    if (post.picture !== null) {
-        picture = `http://localhost:8080/images/${post.picture}`
-    }
-
+export default function Post( { post, profil } ) {
     return (
-        <div className="post block">
-            <div className="post__container">
-                <div className="post__artisan">
-                    <Profil author={post.author} post/>
-                </div>
-                <div className="post__content" onClick={handleModal}>
+        <div className={post.picture ? 'post' : 'post__alt'}>
+            {post.picture &&
+                <img src={`http://localhost:8080/images/${post.picture}`} alt=" "
+                     className="post__background"/>
+            }
+            <div className={`post__container ${post.picture && post.content && 'post__container-background'}`}>
+                <div className="post__content">
                     <p>{post.content}</p>
-                    {post.picture && <img src={picture} alt={post.picture} />}
-
                 </div>
+                {!profil &&
+                    <div className="post__artisan">
+                        <Profil author={post.author} post/>
+                    </div>
+                }
                 <div className="post__interaction">
-                    <i className="bx bx-heart" />
-                    <i className="bx bx-message" onClick={handleComment} />
-                    <i className="bx bx-upload" />
-                </div>
-                <div className="post__comments">
-                    <Comments comments={comments} modal={handleModal} />
-                    {addComment && (
-                        <form action="" className="post__comments-form">
-                            <textarea name="text" id="text" placeholder="Ajouter un commentaire"></textarea>
-                            <button type="submit">
-                                <i className="bx bx-message-add" />
-                            </button>
-                        </form>
-                    )}
+                    {profil ?
+                        <>
+                            <i className='bx bx-edit'></i>
+                            <i className='bx bx-trash'></i>
+                        </>
+                    :
+                        <>
+                            <i className='bx bx-heart'></i>
+                            <i className='bx bx-message-rounded'></i>
+                            <i className='bx bx-share'></i>
+                        </>
+                    }
                 </div>
             </div>
-            {openModal && <Modal close={() => setOpenModal(false)} />}
         </div>
-    );
+    )
 }

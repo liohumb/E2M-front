@@ -3,17 +3,17 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { Context } from '../../context/Context'
 
-import logo from '../../assets/images/logos/logo-alt.png'
+import Side from '../../navigations/side/Side'
+
 import './login.scss'
 
 export default function Login() {
     const [email, setEmail] = useState( '' )
     const [password, setPassword] = useState( '' )
     const [passwordRequired, setPasswordRequired] = useState( false )
-    const [loading, setLoading] = useState( false )
     const [emailValidated, setEmailValidated] = useState( false )
     const [showSignupButton, setShowSignupButton] = useState( false )
-    const [title, setTitle] = useState( '' )
+    const [showPassword, setShowPassword] = useState(false)
     const [message, setMessage] = useState( '' )
     const [error, setError] = useState( '' )
 
@@ -23,20 +23,13 @@ export default function Login() {
     useEffect( () => {
         const checkEmail = async () => {
             try {
-                const response = await fetch( 'http://localhost:8080/auth/email-verification', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify( { email } )
-                } )
-                const data = await response.json()
-                setPasswordRequired( data.passwordRequired )
+                const response = await axios.post(`http://localhost:8080/auth/email-verification`, {email})
+                setPasswordRequired( response.data.passwordRequired )
                 setEmailValidated( true )
-                setShowSignupButton( !data.passwordRequired )
-                setTitle( data.passwordRequired ? 'Connexion' : 'Inscription' )
-            } catch (error) {
+                setShowSignupButton( !response.data.passwordRequired )
+            } catch (e) {
                 setEmailValidated( false )
                 setShowSignupButton( false )
-                console.error( error )
             }
         }
 
@@ -49,25 +42,20 @@ export default function Login() {
         event.preventDefault()
 
         try {
-            const response = await fetch( 'http://localhost:8080/auth/pre-inscription', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify( { email } )
-            } )
+            const response = await axios.post(`http://localhost:8080/auth/pre-inscription`, {email})
 
             if (response.ok) {
                 setMessage( 'Un email vous à été envoyé afin de continuer votre inscription' )
             } else {
                 setError( 'Une erreur est survenue, veuillez réessayer plus tard' )
             }
-        } catch (error) {
-            setError( error.response.data.msg )
+        } catch (e) {
+            setError( e.response.data.msg )
         }
     }
 
     const handleLogin = async ( event ) => {
         event.preventDefault()
-        setLoading( true )
 
         dispatch( { type: 'LOGIN_START' } )
 
@@ -79,61 +67,62 @@ export default function Login() {
         } catch (e) {
             dispatch( { type: 'LOGIN_FAILURE' } )
         }
+    }
 
-        setLoading( false )
+    const handleShowPassword = () => {
+        if (showPassword) {
+            setShowPassword(false)
+        } else {
+            setShowPassword(true)
+        }
     }
 
     return (
-        <section className="login">
-            <div className="login__container">
-                <h2 className="login__title">{title || <img src={logo} alt=""/>}</h2>
-                <form className="form" onSubmit={passwordRequired ? handleLogin : handleSignup}>
-                    <div className="form__content">
-                        <label htmlFor="email"></label>
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            placeholder="Merci de saisir votre adresse email"
-                            value={email}
-                            onChange={( event ) => setEmail( event.target.value )}
-                            required
-                        />
-                    </div>
-                    {passwordRequired ? (
-                        <>
-                            <div className="form__content">
-                                <label htmlFor="password"></label>
-                                <input
-                                    type="password"
-                                    name="password"
-                                    id="password"
-                                    placeholder="Votre mot de passe"
-                                    value={password}
-                                    onChange={( event ) => setPassword( event.target.value )}
-                                    required
-                                />
-                            </div>
-                            <div className="form__content">
-                                <button type="submit" disabled={loading}>
-                                    {title || 'Connexion'}
-                                </button>
-                            </div>
-                        </>
-                    ) : (
-                        emailValidated &&
-                        showSignupButton && (
-                            <div className="form__content">
-                                {message ?
-                                    <p>{message}</p>
-                                    :
-                                    <button type="submit">{title || 'Inscription'}</button>
+        <section className="login section">
+            <div className="login__container section__container">
+                <div className="login__container-left section__container-left">
+                    <Side/>
+                </div>
+                <div className="login__container-right section__container-right">
+                    <form action="" className="login__form form"
+                          onSubmit={passwordRequired ? handleLogin : handleSignup}>
+                        <div className="form__content">
+                            <label htmlFor="email"></label>
+                            <input type="email" name="email" id="email"
+                                   placeholder="Votre adresse email" required
+                                   value={email} onChange={( e ) => setEmail(e.target.value)}/>
+                        </div>
+                        {passwordRequired ?
+                            <>
+                                <div className="form__content">
+                                    <label htmlFor="password"></label>
+                                    <div className="form__content-password">
+                                        <input type={showPassword ? 'text' : 'password'} name="password" id="password"
+                                               placeholder="Votre mot de passe" required
+                                               value={password} onChange={( e ) => setPassword(e.target.value)}/>
+                                        <i className={showPassword ? 'bx bx-hide' : 'bx bx-show'} onClick={handleShowPassword}/>
+                                    </div>
+                                </div>
+                                <div className="form__content">
+                                    <button type="submit">Connexion</button>
+                                </div>
+                            </>
+                        :
+                            <>
+                                {emailValidated && showSignupButton &&
+                                    <div className="form__content">
+                                        {message ?
+                                            <span>{message}</span>
+                                        :
+                                            <button type="submit">Inscription</button>
+                                        }
+                                    </div>
                                 }
-                            </div>
-                        )
-                    )}
-                    {error && <p className="form__error">{error}</p>}
-                </form>
+                            </>
+                        }
+                        {error && <p className="form__error">{error}</p>}
+                    </form>
+                </div>
             </div>
         </section>
     )

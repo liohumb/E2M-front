@@ -60,7 +60,7 @@
     place-items: center;
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: rgba(0, 0, 0, 0.4) 0 3rem 9rem;
+    box-shadow: v.$box-shadow-alt;
     background: v.$light-color;
 
     & img {

@@ -1,25 +1,58 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import Profil from '../profil/Profil'
+import {getData, getPreview } from '../../utils'
 
 import './card.scss'
 
-export default function Card( { product } ) {
+export default function Card( { data } ) {
     const navigate = useNavigate()
+    const preview = getPreview(55, data.description)
 
-    const maxLength = 100
-    const truncatedDescription = product.description.length > maxLength
-        ? product.description.slice( 0, maxLength ) + '...'
-        : product.description
+    const [user, setUser] = useState([])
 
-    const showProduct = () => {
-        navigate(`/produits/${product._id}`)
+    getData('user', data.artisan, setUser)
+
+    const handleDetail = () => {
+        let path
+
+        if (data.title) {
+            path = 'produit'
+        } else if (data.role) {
+            path = 'artisan'
+        } else {
+            path = 'post'
+        }
+
+        navigate(`/${path}/${data._id}`)
     }
+
     return (
-        <div className="card" onClick={showProduct}>
-            <img src={`http://localhost:8080/images/${product.picture}`} alt=" "/>
-            <div className="card__container">
-                <h1>{product.title}</h1>
-                <p>{truncatedDescription}</p>
-            </div>
-        </div>
+        <li className="card">
+            {data.picture &&
+                <img src={`http://localhost:8080/images/${data.picture}`} alt=""
+                     className="card__picture"/>
+            }
+            {data.picture === null ?
+                <div className="card__content" onClick={handleDetail}>
+                    <p>{preview}</p>
+                    {!data.role &&
+                        <div className="card__content-profil">
+                            <Profil artisan={user} />
+                        </div>
+                    }
+                </div>
+                :
+                <div className="card__container" onClick={handleDetail}>
+                    <p>{preview}</p>
+                    {!data.role &&
+                        <div className="card__container-profil">
+                            <Profil artisan={user}/>
+                        </div>
+                    }
+                </div>
+            }
+        </li>
     )
 }

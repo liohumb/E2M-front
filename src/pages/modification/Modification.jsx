@@ -1,17 +1,19 @@
 import { useContext, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Context } from '../../context/Context'
 import axios from 'axios'
 
 import Side from '../../navigations/side/Side'
-import Pictures from '../../components/pictures/Pictures'
 
 import './modification.scss'
+import { getData } from '../../utils'
 
 export default function Modification() {
     const { user } = useContext( Context )
+    const id = useParams().id
     const navigate = useNavigate()
 
+    const [artisan, setArtisan] = useState([])
     const [firstname, setFirstname] = useState( '' )
     const [lastname, setLastname] = useState( '' )
     const [society, setSociety] = useState( '' )
@@ -24,6 +26,9 @@ export default function Modification() {
     const [error, setError] = useState( '' )
     const [isFetchingCities, setIsFetchingCities] = useState( false )
 
+    useEffect( () => {
+        getData('user', id, setArtisan)
+    }, [id])
 
     useEffect( () => {
         const getInfo = async () => {
@@ -67,9 +72,7 @@ export default function Modification() {
                 setIsFetchingCities( false )
             }
         }
-        if (postcode.length === 5) {
             fetchCities()
-        }
     }, [postcode] )
 
     const handlePostcodeChange = ( event ) => {
@@ -106,7 +109,7 @@ export default function Modification() {
                 description
             } )
             if (response.data) {
-                navigate( `/profil/${user._id}` )
+                navigate( `/artisan/${user._id}` )
             } else {
                 setError( 'Une erreur est survenue merci de réessayer ultérieurement' )
             }
@@ -117,10 +120,12 @@ export default function Modification() {
     }
 
     return (
-        <section className="modification section">
-            <div className="modification__container section__container">
-                <div className="modification__container-left section__container-left">
-                    <Pictures/>
+        <section className="home section">
+            <div className="home__container section__container">
+                <div className="home__container-left section__container-left">
+                    <Side artisan={artisan}/>
+                </div>
+                <div className="home__container-right section__container-right">
                     <form action="" className="form modification__form" onSubmit={handleUpdate}>
                         <div className="form__contents">
                             <div className="form__content">
@@ -187,9 +192,6 @@ export default function Modification() {
                         </div>
                         {error && <p className="form__error">{error}</p>}
                     </form>
-                </div>
-                <div className="modification__container-right section__container-right">
-                    <Side name={firstname + ' ' + lastname} society={society} description={description}/>
                 </div>
             </div>
         </section>

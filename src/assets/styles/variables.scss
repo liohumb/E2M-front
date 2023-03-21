@@ -1,6 +1,8 @@
 /* VARIABLES */
 // fonts
 $primary-font: 'Rubik', sans-serif;
+$secondary-font: 'Gogh', sans-serif;
+$title-font: 'Oddval', sans-serif;
 
 // colors
 $light-color: #f1f1f1;
@@ -13,5 +15,20 @@ $second-color-light: #b8abb7;
 $second-color: #72576f;
 $alert-color: #A86464;
 $dark-color: #2b3739;
+
+// backgrounds
+$light-background: rgb(241,241,241);
+$light-linear-background: linear-gradient(19deg, rgba(241,241,241,1) 0%, rgba(154,168,170,1) 100%);
+$light-radial-background: radial-gradient(circle, rgba(241,241,241,1) 0%, rgba(154,168,170,1) 100%);
+$background: rgb(154,168,170);
+$linear-background: linear-gradient(19deg, rgba(154,168,170,1) 0%, rgba(87,111,114,1) 100%);
+$radial-background: radial-gradient(circle, rgba(154,168,170,1) 0%, rgba(87,111,114,1) 100%);
+$dark-background: rgb(60,77,79);
+$dark-linear-background: linear-gradient(19deg, rgba(60,77,79,1) 0%, rgba(43,55,57,1) 100%);
+$dark-radial-background: radial-gradient(circle, rgba(60,77,79,1) 0%, rgba(43,55,57,1) 100%);
+
+// shadows
+$box-shadow: rgba(100, 100, 111, 0.2) 0 .75rem 3rem 0;
+$box-shadow-alt: rgba(0, 0, 0, 0.4) 0 3rem 9rem;
 
 // margin & padding & gap
