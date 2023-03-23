@@ -18,7 +18,13 @@
     object-fit: cover;
     transition: all .7s ease;
   }
-  
+
+  &.top-card.hovered &__picture {
+    @media (max-width: 768px) {
+      transform: scale(1.1);
+    }
+  }
+
   &:hover &__picture {
     transform: scale(1.1);
   }
@@ -50,7 +56,24 @@
       bottom: 2rem;
       width: 100%;
       z-index: 1;
+
+      &.top-card.hovered {
+        @media (max-width: 768px) {
+          opacity: 1;
+        }
+      }
     }
+
+    &.top-card.hovered {
+      @media (max-width: 768px) {
+        opacity: 1;
+      }
+    }
+
+    &.top-card.hovered &__container {
+      opacity: 1;
+    }
+
   }
   
   &:hover &__container {

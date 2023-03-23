@@ -1,0 +1,24 @@
+@use "src/assets/styles/Variables" as v;
+
+.conversation {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__name {
+    font-family: v.$title-font;
+    font-size: 1.75rem;
+  }
+
+  &__picture {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+}

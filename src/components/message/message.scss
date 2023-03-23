@@ -1,0 +1,21 @@
+@use "src/assets/styles/Variables" as v;
+
+.message {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  &__alt {
+    align-items: flex-start;
+  }
+
+  & p {
+    font-family: v.$title-font;
+    font-size: 2.5rem;
+  }
+
+  & span {
+    font-size: 1.5rem;
+  }
+}

@@ -145,6 +145,7 @@ ul {
     &-title {
       font-family: v.$title-font;
       font-size: 4rem;
+      padding: 2rem 4rem;
     }
   }
 
@@ -155,6 +156,7 @@ ul {
     font-size: 2rem;
     cursor: pointer;
     padding: 2rem;
+    z-index: 2;
 
     & i {
       font-size: 3rem;

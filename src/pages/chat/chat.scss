@@ -1,0 +1,76 @@
+@use "src/assets/styles/Variables" as v;
+
+.chat {
+  &__contents {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+
+    &-left {
+      position: relative;
+      overflow: hidden;
+      padding: 2rem;
+    }
+
+    &-right {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4rem;
+      padding: 4rem;
+    }
+
+    &-content {
+      height: 80%;
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+      overflow-y: scroll;
+    }
+  }
+
+  &__title {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    font-family: v.$title-font;
+    font-size: 2rem;
+
+    & span {
+      font-size: 4rem;
+    }
+  }
+
+  &__form {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 4rem;
+
+    & textarea {
+      width: 50rem;
+      font-family: v.$secondary-font;
+      font-size: 1.75rem;
+      background: none;
+      border: none;
+      border-bottom: .1rem solid v.$dark-color;
+      padding: 2rem;
+    }
+
+    & button {
+      font-size: 3.25rem;
+      cursor: pointer;
+    }
+  }
+}

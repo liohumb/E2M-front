@@ -49,7 +49,6 @@ export default function Side( {
         }
     }
 
-
     const handleLogout = () => {
         dispatch( { type: 'LOGOUT' } )
     }
@@ -81,7 +80,7 @@ export default function Side( {
                         :
                         <>
                             <h1 className="side__title">Entre ✌️<br/> Mains</h1>
-                            <p className="side__subtitle">Recherchez,<br/> Découvrez,<br/> trouvez votre artisan</p>
+                            <p className="side__subtitle">Recherchez,<br/> découvrez,<br/> trouvez votre artisan</p>
                         </>
                     }
 
@@ -151,7 +150,6 @@ export default function Side( {
                                                setSearch( e.target.value )
                                                setSearchResults( [] )
                                            }}/>
-                                    <button type="submit"><i className="bx bx-search"></i></button>
                                 </form>
                                 <ul className="side__menu-list">
                                     <li>

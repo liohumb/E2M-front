@@ -2,6 +2,7 @@ import { useEffect, useContext } from 'react'
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { Context } from './context/Context'
 
+import Nav from './navigations/nav/Nav'
 import Login from './authentification/login/Login'
 import Register from './authentification/register/Register'
 import Home from './pages/home/Home'
@@ -9,6 +10,7 @@ import Artisans from './pages/artisans/Artisans'
 import Posts from './pages/posts/Posts'
 import Products from './pages/products/Products'
 import Artisan from './pages/artisan/Artisan'
+import Chat from './pages/chat/Chat'
 import Single from './pages/single/Single'
 import Create from './pages/create/Create'
 import Modification from './pages/modification/Modification'
@@ -37,6 +39,7 @@ export default function App() {
 
     return (
         <>
+            <Nav/>
             <Routes>
                 <Route path="/inscription/:token" element={<Register/>}/>
                 <Route path="/connexion" element={user ? <Navigate to="/"/> : <Login/>}/>
@@ -47,6 +50,7 @@ export default function App() {
                 <Route path="/artisan/:id/ajouter-produit" element={<Create product/>}/>
                 <Route path="/artisan/:id/nouveau-post" element={<Create post/>}/>
                 <Route path="/artisan/:id" element={<Artisan/>}/>
+                <Route path="/chat" element={user ? <Chat/> : <Navigate to="/"/>}/>
                 <Route path="/produits" element={<Products/>}/>
                 <Route path="/posts" element={<Posts/>}/>
                 <Route path="/artisans" element={<Artisans/>}/>

@@ -1,0 +1,20 @@
+@use "src/assets/styles/Variables" as v;
+
+.nav {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  display: none;
+  place-items: center;
+  z-index: 3;
+
+  @media (max-width: 768px) {
+    display: grid;
+  }
+
+  &__button {
+    font-size: 7rem;
+  }
+}
