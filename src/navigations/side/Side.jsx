@@ -1,16 +1,14 @@
 import { useContext, useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Dropzone from 'react-dropzone'
-import axios from 'axios'
 import { Context } from '../../context/Context'
+import { getSearch, postData, updateData } from '../../utils'
 
 import './side.scss'
 
-export default function Side( {
-                                  home, about, artisans, artisan, post, product,
-                                  clickHome, clickAbout, clickPosts, clickProducts,
-                                  search, setSearch, setSearchResults
-                              } ) {
+export default function Side( { home, about, artisans, artisan, post, product,
+                              clickHome, clickAbout, clickPosts, clickProducts,
+                              search, setSearch, setSearchResults } ) {
     const { user, dispatch } = useContext( Context )
     const id = useParams().id
 
@@ -18,13 +16,7 @@ export default function Side( {
 
     useEffect( () => {
         if (search && setSearch && setSearchResults) {
-            axios.get( `http://localhost:8080/search?q=${search}` )
-                .then( ( response ) => {
-                    setSearchResults( response.data )
-                } )
-                .catch( ( error ) => {
-                    console.error( 'Error fetching search results:', error )
-                } )
+            getSearch(search, setSearchResults)
         } else if (setSearchResults) {
             setSearchResults( [] )
         }
@@ -38,10 +30,10 @@ export default function Side( {
             data.append( 'name', fileName )
             data.append( 'file', file )
 
-            await axios.post( `http://localhost:8080/upload`, data )
+            await postData('upload', data)
 
             const updateArtisan = { picture: fileName, userId: user._id }
-            await axios.put( `http://localhost:8080/user/${id}`, updateArtisan )
+            await updateData('user', id, updateArtisan)
 
             const imageUrl = `http://localhost:8080/images/${fileName}`
             setFile( imageUrl )
@@ -71,7 +63,7 @@ export default function Side( {
                                 </Dropzone>
                                 :
                                 <img
-                                    src={file ? file : `http://localhost:8080/images/${artisan.picture}`}
+                                    src={file ? file : artisan.picture && `http://localhost:8080/images/${artisan.picture}`}
                                     alt=""
                                     className="side__picture"
                                 />
@@ -89,7 +81,7 @@ export default function Side( {
                             <>
                                 <h1 className="side__menu-name">{artisan.firstname + ' ' + artisan.lastname}</h1>
                                 <span className="side__menu-society">{artisan.society}</span>
-                                {artisan._id === user._id ?
+                                {user && artisan._id === user._id ?
                                     <ul className="side__menu-list">
                                         <li>
                                             <Link to="/" className="side__menu-list--link">Accueil</Link>

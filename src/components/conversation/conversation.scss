@@ -2,13 +2,12 @@
 
 .conversation {
   width: 100%;
-  display: grid;
-  place-items: center;
   cursor: pointer;
 
   &__container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1rem;
   }
 

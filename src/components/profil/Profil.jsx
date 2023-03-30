@@ -6,8 +6,9 @@ export default function Profil( { artisan } ) {
         <div className="profil">
             <div className="profil__container">
                 <span className="profil__name">{artisan.firstname + ' ' + artisan.lastname}</span>
-                <img src={`http://localhost:8080/images/${artisan.picture}`} alt=""
-                     className="profil__picture"/>
+                {artisan.picture &&
+                    <img src={`http://localhost:8080/images/${artisan.picture}`} alt=""
+                         className="profil__picture"/>}
             </div>
         </div>
     )

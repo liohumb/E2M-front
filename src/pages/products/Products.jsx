@@ -3,6 +3,7 @@ import { getAll, sortAll } from '../../utils'
 
 import Side from '../../navigations/side/Side'
 import Card from '../../components/card/Card'
+import Search from '../../components/search/Search'
 
 import './products.scss'
 
@@ -26,52 +27,20 @@ export default function Posts() {
         <section className="products section">
             <div className="products__container section__container">
                 <div className="products__container-right section__container-left">
-                    <Side product={showProduct} clickProducts={handleProduct} setSearchResults={setSearchResults} search={search}
+                    <Side product={showProduct} clickProducts={handleProduct}
+                          setSearchResults={setSearchResults} search={search}
                           setSearch={setSearch}/>
                 </div>
                 <div className="products__container-right section__container-right">
-                    {searchResults.length === 0 && search.length > 0 ?
-                        <div className="products__result"></div>
+                    {searchResults && searchResults.length === 0 && search.length <= 0 &&
+                    search.length === 0 ?
+                        <ul className="products__contents section__contents">
+                            {products.reverse().map( ( data ) => (
+                                <Card key={data._id} data={data}/>
+                            ) )}
+                        </ul>
                         :
-                        search.length === 0 ?
-                            <ul className="products__contents section__contents">
-                                {products.map((product) => (
-                                    <Card data={product}/>
-                                ))}
-                            </ul>
-                            :
-                            <div className="products__result section__result">
-                                {searchResults.users.length > 0 &&
-                                    <>
-                                        <h1 className="products__result-title section__result-title">Les Artisans</h1>
-                                        <ul className="products__contents section__contents">
-                                            {searchResults.users.map( ( data ) => (
-                                                <Card key={data._id} data={data}/>
-                                            ) )}
-                                        </ul>
-                                    </>
-                                }
-                                {searchResults.posts.length > 0 &&
-                                    <>
-                                        <h1 className="products__result-title section__result-title">Les Posts</h1>
-                                        <ul className="products__contents section__contents">
-                                            {searchResults.posts.map( ( data ) => (
-                                                <Card key={data._id} data={data}/>
-                                            ) )}
-                                        </ul>
-                                    </>
-                                }
-                                {searchResults.products.length > 0 &&
-                                    <>
-                                        <h1 className="products__result-title section__result-title">Les Produits</h1>
-                                        <ul className="products__contents section__contents">
-                                            {searchResults.products.map( ( data ) => (
-                                                <Card key={data._id} data={data}/>
-                                            ) )}
-                                        </ul>
-                                    </>
-                                }
-                            </div>
+                        <Search searchResults={searchResults}/>
                     }
                 </div>
             </div>

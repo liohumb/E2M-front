@@ -34,7 +34,7 @@ export default function Modal( { modal, close } ) {
                     </div>
                 </li>
                 <li>
-                    <input type="text" name="search" id="search" placeholder="Rechercher…"
+                    <input type="text" name="modalSearch" id="modalSearch" placeholder="Rechercher…"
                            className="modal__menu-input"/>
                 </li>
                 <li>

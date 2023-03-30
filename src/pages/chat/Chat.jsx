@@ -1,15 +1,14 @@
 import { useState, useEffect, useContext, useRef } from 'react'
 import { Context } from '../../context/Context'
-import axios from 'axios'
 import { io } from 'socket.io-client'
+import { getData, postData } from '../../utils'
 
 import Side from '../../navigations/side/Side'
-import Card from '../../components/card/Card'
 import Conversation from '../../components/conversation/Conversation'
 import Message from '../../components/message/Message'
+import Search from '../../components/search/Search'
 
 import './chat.scss'
-import { getData } from '../../utils'
 
 export default function Chat() {
     const { user } = useContext( Context )
@@ -18,18 +17,18 @@ export default function Chat() {
 
     const [search, setSearch] = useState( '' )
     const [searchResults, setSearchResults] = useState( [] )
-    const [chats, setChats] = useState( [] )
-    const [chat, setChat] = useState( null )
+    const [conversations, setConversations] = useState( [] )
+    const [currentChat, setCurrentChat] = useState( null )
     const [messages, setMessages] = useState( [] )
     const [newMessage, setNewMessage] = useState( '' )
     const [arrivalMessage, setArrivalMessage] = useState( null )
 
     useEffect( () => {
-        socket.current = io( 'ws://localhost:8888' )
+        socket.current = io( 'ws://localhost:8900' )
         socket.current.on( 'getMessage', ( data ) => {
             setArrivalMessage( {
                 sender: data.senderId,
-                message: data.message,
+                text: data.text,
                 createdAt: Date.now()
             } )
         } )
@@ -37,60 +36,47 @@ export default function Chat() {
 
     useEffect( () => {
         arrivalMessage &&
-        chat?.users.includes( arrivalMessage.sender ) &&
+        currentChat?.users.includes( arrivalMessage.sender ) &&
         setMessages( ( prev ) => [...prev, arrivalMessage] )
-    }, [arrivalMessage, chat] )
+    }, [arrivalMessage, currentChat] )
 
     useEffect( () => {
         socket.current.emit( 'addUser', user._id )
-        socket.current.on( 'getUsers', users => {
-            console.log( users )
+        socket.current.on( 'getUsers', ( users ) => {
+            console.log(users)
         } )
     }, [user] )
 
     useEffect( () => {
-        const getChat = async () => {
-            try {
-                const response = await axios.get( `http://localhost:8080/chat/${user._id}` )
-                setChats( response.data )
-            } catch (e) {
-            }
-        }
-        getChat()
+        getData('chat', user._id, setConversations)
     }, [user._id] )
 
     useEffect( () => {
-        if (chat) {
-            getData( 'message', chat._id, setMessages )
-        }
-    }, [chat] )
+        getData( 'message', currentChat?._id, setMessages )
+    }, [currentChat] )
 
     const handleSubmit = async ( e ) => {
         e.preventDefault()
-
         const message = {
-            user: user._id,
-            message: newMessage,
-            chat: chat._id
+            sender: user._id,
+            text: newMessage,
+            chatId: currentChat._id
         }
 
-        const receiverId = chat.users.find(
-            ( user ) => user !== user._id
+        const receiverId = currentChat.users.find(
+            ( member ) => member !== user._id
         )
 
         socket.current.emit( 'sendMessage', {
             senderId: user._id,
             receiverId,
-            message: newMessage
+            text: newMessage
         } )
 
         try {
-            const response = await axios.post( `http://localhost:8080/message`, message )
+            const response = await postData( 'message', message )
             setMessages( [...messages, response.data] )
             setNewMessage( '' )
-            if (chat) {
-                await getData( 'message', chat._id, setMessages )
-            }
         } catch (e) {
         }
     }
@@ -107,56 +93,43 @@ export default function Chat() {
                           setSearch={setSearch}/>
                 </div>
                 <div className="chat__container-right section__container-right">
-                    {searchResults.length === 0 && search.length > 0 ?
-                        <div className="chat__result"></div>
-                        :
-                        search.length === 0 ?
-                            <div className="chat__contents">
-                                <div className="chat__contents-left">
-                                    {chat ?
-                                        <>
-                                            <div className="chat__contents-content">
-                                                {messages.map( ( message ) =>
-                                                    <div ref={scrollRef} key={message._id}>
-                                                        <Message message={message}
-                                                                 you={message.user === user._id}/>
-                                                    </div>
-                                                )}
-                                            </div>
-                                            <form action="" className="chat__form" onSubmit={handleSubmit}>
+                    {searchResults && searchResults.length === 0 && search.length <= 0 &&
+                    search.length === 0 ?
+                        <div className="chat__contents">
+                            <div className="chat__contents-left">
+                                {currentChat ?
+                                    <>
+                                        <div className="chat__contents-content">
+                                            {messages.map( ( message ) =>
+                                                <div ref={scrollRef} key={message._id}>
+                                                    <Message message={message}
+                                                             own={message.sender === user._id}/>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <form action="" className="chat__form" onSubmit={handleSubmit}>
                                                 <textarea name="message" id="message" placeholder="Votre message…"
                                                           value={newMessage}
                                                           onChange={( e ) => setNewMessage( e.target.value )}/>
-                                                <button type="submit">
-                                                    <i className="bx bx-message-add"/>
-                                                </button>
-                                            </form>
-                                        </>
-                                        :
-                                        <h1 className="chat__title">Sélectionnez un message <span>👉</span></h1>
-                                    }
-                                </div>
-                                <div className="chat__contents-right">
-                                    {chats.map( ( chat ) =>
-                                        <div key={chat._id} onClick={() => setChat( chat )}>
-                                            <Conversation chat={chat} you={user}/>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                            :
-                            <div className="chat__result section__result">
-                                {searchResults.users.length > 0 &&
-                                    <>
-                                        <h1 className="chat__result-title section__result-title">Les Artisans</h1>
-                                        <ul className="chat__contents section__contents">
-                                            {searchResults.users.map( ( data ) => (
-                                                <Card key={data._id} data={data}/>
-                                            ) )}
-                                        </ul>
+                                            <button type="submit">
+                                                <i className="bx bx-message-add"/>
+                                            </button>
+                                        </form>
                                     </>
+                                    :
+                                    <h1 className="chat__title">Sélectionnez une conversation <span>👉</span></h1>
                                 }
                             </div>
+                            <div className="chat__contents-right">
+                                {conversations.map( ( conversation ) =>
+                                    <div key={conversation._id} onClick={() => setCurrentChat( conversation )}>
+                                        <Conversation chat={conversation} currentUser={user}/>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                        :
+                        <Search searchResults={searchResults}/>
                     }
                 </div>
             </div>

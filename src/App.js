@@ -50,7 +50,7 @@ export default function App() {
                 <Route path="/artisan/:id/ajouter-produit" element={<Create product/>}/>
                 <Route path="/artisan/:id/nouveau-post" element={<Create post/>}/>
                 <Route path="/artisan/:id" element={<Artisan/>}/>
-                <Route path="/chat" element={user ? <Chat/> : <Navigate to="/"/>}/>
+                <Route path="/chat" element={user ? <Chat/> : <Navigate to="/connexion"/>}/>
                 <Route path="/produits" element={<Products/>}/>
                 <Route path="/posts" element={<Posts/>}/>
                 <Route path="/artisans" element={<Artisans/>}/>

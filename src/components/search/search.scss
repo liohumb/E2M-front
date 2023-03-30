@@ -1,0 +1,9 @@
+@use "src/assets/styles/Variables" as v;
+
+.search {
+  &__title {
+    font-family: v.$title-font;
+    font-size: 4rem;
+    padding: 2rem 4rem;
+  }
+}

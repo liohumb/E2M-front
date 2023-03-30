@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { Context } from '../../context/Context'
-import { formatPrice, getAll, getData } from '../../utils'
+import { deleteComment, deleteData, formatPrice, getAll, getData, postData, updateData, toggle } from '../../utils'
 
 import './content.scss'
 
@@ -24,8 +24,10 @@ export default function Content( { data, setData, update, setUpdate } ) {
     }, [data.artisan] )
 
     useEffect( () => {
-        getData( 'user', user._id, setGetUser )
-    }, [user._id] )
+        if (user) {
+            getData( 'user', user._id, setGetUser )
+        }
+    }, [user] )
 
     useEffect( () => {
         getAll( 'comment', setComments )
@@ -53,10 +55,7 @@ export default function Content( { data, setData, update, setUpdate } ) {
                     userId: user._id,
                     likes: updatedLikes
                 } )
-
                 setGetUser( updatedUser.data )
-
-                // Supprimer user._id du champ users
                 await axios.put( `http://localhost:8080/${path}/${id}`, {
                     removeUser: user._id
                 } )
@@ -69,8 +68,6 @@ export default function Content( { data, setData, update, setUpdate } ) {
                     userId: user._id,
                     likes: updatedLikes
                 } )
-
-                // Ajouter user._id au champ users
                 await axios.put( `http://localhost:8080/${path}/${id}`, {
                     users: user._id
                 } )
@@ -91,49 +88,30 @@ export default function Content( { data, setData, update, setUpdate } ) {
         }
 
         try {
-            await axios.post( `http://localhost:8080/comment`, newComment )
-        } catch (e) {
-        }
+            await postData('comment', newComment)
+        } catch (e) {}
     }
 
     const handleDeleteComment = async ( commentId ) => {
         try {
-            if (!user) {
-                alert( 'Veuillez vous connecter pour supprimer le commentaire.' )
-                return
-            }
-
-            await axios.delete( `http://localhost:8080/comment/${commentId}` )
+            await deleteComment('comment', commentId)
             window.location.reload()
-        } catch (e) {
-        }
+        } catch (e) {}
     }
 
 
     const handleUpdate = async () => {
         try {
-            await axios.put( `http://localhost:8080/${path}/${data._id}`, data )
+            await updateData(path, data._id, data)
             setUpdate( false )
-        } catch (e) {
-        }
+        } catch (e) {}
     }
 
     const handleDelete = async () => {
         try {
-            await axios.delete( `http://localhost:8080/${path}/${data._id}`, {
-                data: { artisan: user._id }
-            } )
+            await deleteData(path, data._id, artisan, user._id)
             navigate( -1 )
-        } catch (e) {
-        }
-    }
-
-    const toggleUpdate = () => {
-        if (update) {
-            setUpdate( false )
-        } else {
-            setUpdate( true )
-        }
+        } catch (e) {}
     }
 
     return (
@@ -188,51 +166,55 @@ export default function Content( { data, setData, update, setUpdate } ) {
                 </div>
                 <div className="content__container-bottom">
                     <div className="content__interactions">
-                        <div className="content__interactions-interaction">
-                            {user && artisan._id === user._id ?
-                                <>
-                                    {update ?
-                                        <i className="bx bx-check" onClick={handleUpdate}/>
+                        {user &&
+                            <>
+                                <div className="content__interactions-interaction">
+                                    {user && artisan._id === user._id ?
+                                        <>
+                                            {update ?
+                                                <i className="bx bx-check" onClick={handleUpdate}/>
+                                                :
+                                                <>
+                                                    <i className="bx bx-edit" onClick={() => toggle(update, setUpdate)}/>
+                                                    <i className="bx bx-trash" onClick={handleDelete}/>
+                                                </>
+                                            }
+                                        </>
                                         :
                                         <>
-                                            <i className="bx bx-edit" onClick={toggleUpdate}/>
-                                            <i className="bx bx-trash" onClick={handleDelete}/>
+                                            <i className={`bx ${like ? 'bxs-heart' : 'bx-heart'}`} onClick={handleLike}/>
+
+                                            <i className="bx bx-message-rounded"/>
+                                            <i className="bx bx-share"/>
                                         </>
                                     }
-                                </>
-                                :
-                                <>
-                                    <i className={`bx ${like ? 'bxs-heart' : 'bx-heart'}`} onClick={handleLike}/>
+                                </div>
 
-                                    <i className="bx bx-message-rounded"/>
-                                    <i className="bx bx-share"/>
-                                </>
-                            }
-                        </div>
-
-                        <ul className="content__comments">
-                            {comments.filter( comment => comment.data === id ).map( ( comment ) => (
-                                <li key={comment._id}>
-                                    <p className="content__comments-comment">{comment.comment}</p>
-                                    <p className="content__comments-author">
-                                        {comment.username}
-                                        {comment.user === user._id ?
-                                            <i className="bx bx-x" onClick={() => handleDeleteComment(comment._id)} />
-                                            :
-                                            <i className="bx bx-subdirectory-left"/>
-                                        }
-                                    </p>
-                                </li>
-                            ) )}
-                        </ul>
-                        <form action="" className="content__comments-form" onSubmit={handleComment}>
-                            <input type="text" name="comment" id="comment"
-                                   placeholder="Votre commentaire…"
-                                   value={comment} onChange={( e ) => setComment( e.target.value )}/>
-                            <button type="submit">
-                                <i className="bx bx-message-rounded-add"/>
-                            </button>
-                        </form>
+                                <ul className="content__comments">
+                                    {comments.filter( comment => comment.data === id ).map( ( comment ) => (
+                                        <li key={comment._id}>
+                                            <p className="content__comments-comment">{comment.comment}</p>
+                                            <p className="content__comments-author">
+                                                {comment.username}
+                                                {comment.user === user._id ?
+                                                    <i className="bx bx-x" onClick={() => handleDeleteComment(comment._id)} />
+                                                    :
+                                                    <i className="bx bx-subdirectory-left"/>
+                                                }
+                                            </p>
+                                        </li>
+                                    ) )}
+                                </ul>
+                                <form action="" className="content__comments-form" onSubmit={handleComment}>
+                                    <input type="text" name="comment" id="comment"
+                                           placeholder="Votre commentaire…"
+                                           value={comment} onChange={( e ) => setComment( e.target.value )}/>
+                                    <button type="submit">
+                                        <i className="bx bx-message-rounded-add"/>
+                                    </button>
+                                </form>
+                            </>
+                        }
                     </div>
 
                     {data.picture &&

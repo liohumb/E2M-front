@@ -5,6 +5,7 @@ import Side from '../../navigations/side/Side'
 import Card from '../../components/card/Card'
 
 import './home.scss'
+import Search from '../../components/search/Search'
 
 export default function Home() {
     const [posts, setPosts] = useState( [] )
@@ -36,48 +37,15 @@ export default function Home() {
                           setSearch={setSearch}/>
                 </div>
                 <div className="home__container-right section__container-right">
-                    {searchResults.length === 0 && search.length > 0 ?
-                        <div className="home__result"></div>
-                        :
+                    {searchResults && searchResults.length === 0 && search.length <= 0 &&
                         search.length === 0 ?
                             <ul className="home__contents section__contents">
-                                {datas.reverse().map( ( data ) => (
+                                {datas.filter(data => data.sponsor === true).reverse().map( ( data ) => (
                                     <Card key={data._id} data={data}/>
                                 ) )}
                             </ul>
                             :
-                            <div className="home__result section__result">
-                                {searchResults.users.length > 0 &&
-                                    <>
-                                        <h1 className="home__result-title section__result-title">Les Artisans</h1>
-                                        <ul className="home__contents section__contents">
-                                            {searchResults.users.map( ( data ) => (
-                                                <Card key={data._id} data={data}/>
-                                            ) )}
-                                        </ul>
-                                    </>
-                                }
-                                {searchResults.posts.length > 0 &&
-                                    <>
-                                        <h1 className="home__result-title section__result-title">Les Posts</h1>
-                                        <ul className="home__contents section__contents">
-                                            {searchResults.posts.map( ( data ) => (
-                                                <Card key={data._id} data={data}/>
-                                            ) )}
-                                        </ul>
-                                    </>
-                                }
-                                {searchResults.products.length > 0 &&
-                                    <>
-                                        <h1 className="home__result-title section__result-title">Les Produits</h1>
-                                        <ul className="home__contents section__contents">
-                                            {searchResults.products.map( ( data ) => (
-                                                <Card key={data._id} data={data}/>
-                                            ) )}
-                                        </ul>
-                                    </>
-                                }
-                            </div>
+                            <Search searchResults={searchResults}/>
                     }
                 </div>
             </div>

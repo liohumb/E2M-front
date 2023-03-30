@@ -23,12 +23,9 @@ export default function Artisan() {
 
     useEffect( () => {
         getData( 'user', id, setArtisan )
-    }, [id] )
-
-    useEffect( () => {
         getAll('post', setPosts)
         getAll('product', setProducts)
-    }, [])
+    }, [id])
 
     const datas = useMemo(() => {
         const allData = posts.filter(post => post.artisan === id).concat(products.filter(post => post.artisan === id))
@@ -95,7 +92,7 @@ export default function Artisan() {
                                     </Dropzone>
                                     :
                                     <img
-                                        src={file ? file : `http://localhost:8080/images/${artisan.picture}`}
+                                        src={file ? file : artisan.picture && `http://localhost:8080/images/${artisan.picture}`}
                                         alt=""
                                         className="artisan__infos-picture"
                                     />
